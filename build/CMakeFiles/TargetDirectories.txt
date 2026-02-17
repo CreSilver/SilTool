@@ -1,0 +1,5 @@
+/home/silverko/Dokumenty/Programing/Github/SilTool/build/CMakeFiles/sil_tools.dir
+/home/silverko/Dokumenty/Programing/Github/SilTool/build/CMakeFiles/edit_cache.dir
+/home/silverko/Dokumenty/Programing/Github/SilTool/build/CMakeFiles/rebuild_cache.dir
+/home/silverko/Dokumenty/Programing/Github/SilTool/build/CMakeFiles/sil_tools_autogen_timestamp_deps.dir
+/home/silverko/Dokumenty/Programing/Github/SilTool/build/CMakeFiles/sil_tools_autogen.dir
