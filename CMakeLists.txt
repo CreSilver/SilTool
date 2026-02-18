@@ -24,5 +24,6 @@ file(COPY
     c_dev.html 
     web_dev.html 
     asm_dev.html 
+    style.css
     DESTINATION ${CMAKE_CURRENT_BINARY_DIR}
 )
