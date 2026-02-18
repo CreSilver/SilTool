@@ -39,10 +39,20 @@ template <> constexpr inline auto SideBar::qt_create_metaobjectdata<qt_meta_tag_
 {
     namespace QMC = QtMocConstants;
     QtMocHelpers::StringRefStorage qt_stringData {
-        "SideBar"
+        "SideBar",
+        "CDclick",
+        "",
+        "WDclick",
+        "ASMclick"
     };
 
     QtMocHelpers::UintData qt_methods {
+        // Signal 'CDclick'
+        QtMocHelpers::SignalData<void()>(1, 2, QMC::AccessPublic, QMetaType::Void),
+        // Signal 'WDclick'
+        QtMocHelpers::SignalData<void()>(3, 2, QMC::AccessPublic, QMetaType::Void),
+        // Signal 'ASMclick'
+        QtMocHelpers::SignalData<void()>(4, 2, QMC::AccessPublic, QMetaType::Void),
     };
     QtMocHelpers::UintData qt_properties {
     };
@@ -64,10 +74,22 @@ Q_CONSTINIT const QMetaObject SideBar::staticMetaObject = { {
 void SideBar::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     auto *_t = static_cast<SideBar *>(_o);
-    (void)_t;
-    (void)_c;
-    (void)_id;
-    (void)_a;
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        switch (_id) {
+        case 0: _t->CDclick(); break;
+        case 1: _t->WDclick(); break;
+        case 2: _t->ASMclick(); break;
+        default: ;
+        }
+    }
+    if (_c == QMetaObject::IndexOfMethod) {
+        if (QtMocHelpers::indexOfMethod<void (SideBar::*)()>(_a, &SideBar::CDclick, 0))
+            return;
+        if (QtMocHelpers::indexOfMethod<void (SideBar::*)()>(_a, &SideBar::WDclick, 1))
+            return;
+        if (QtMocHelpers::indexOfMethod<void (SideBar::*)()>(_a, &SideBar::ASMclick, 2))
+            return;
+    }
 }
 
 const QMetaObject *SideBar::metaObject() const
@@ -86,7 +108,37 @@ void *SideBar::qt_metacast(const char *_clname)
 int SideBar::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
     _id = QFrame::qt_metacall(_c, _id, _a);
+    if (_id < 0)
+        return _id;
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        if (_id < 3)
+            qt_static_metacall(this, _c, _id, _a);
+        _id -= 3;
+    }
+    if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
+        if (_id < 3)
+            *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
+        _id -= 3;
+    }
     return _id;
+}
+
+// SIGNAL 0
+void SideBar::CDclick()
+{
+    QMetaObject::activate(this, &staticMetaObject, 0, nullptr);
+}
+
+// SIGNAL 1
+void SideBar::WDclick()
+{
+    QMetaObject::activate(this, &staticMetaObject, 1, nullptr);
+}
+
+// SIGNAL 2
+void SideBar::ASMclick()
+{
+    QMetaObject::activate(this, &staticMetaObject, 2, nullptr);
 }
 namespace {
 struct qt_meta_tag_ZN6WindowE_t {};

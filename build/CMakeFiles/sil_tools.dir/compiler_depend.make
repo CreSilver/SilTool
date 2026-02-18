@@ -206,6 +206,7 @@ sil_tools_autogen/timestamp: /home/silverko/Dokumenty/Programing/Github/SilTool/
   /usr/include/c++/15/ext/numeric_traits.h \
   /usr/include/c++/15/ext/string_conversions.h \
   /usr/include/c++/15/ext/type_traits.h \
+  /usr/include/c++/15/filesystem \
   /usr/include/c++/15/functional \
   /usr/include/c++/15/initializer_list \
   /usr/include/c++/15/iosfwd \
@@ -273,11 +274,13 @@ sil_tools_autogen/timestamp: /home/silverko/Dokumenty/Programing/Github/SilTool/
   /usr/include/linux/types.h \
   /usr/include/locale.h \
   /usr/include/pthread.h \
+  /usr/include/qt6/QtCore/QFile \
   /usr/include/qt6/QtCore/QList \
   /usr/include/qt6/QtCore/QObject \
   /usr/include/qt6/QtCore/QRect \
   /usr/include/qt6/QtCore/QSize \
   /usr/include/qt6/QtCore/QSizeF \
+  /usr/include/qt6/QtCore/QTextStream \
   /usr/include/qt6/QtCore/q17memory.h \
   /usr/include/qt6/QtCore/q20functional.h \
   /usr/include/qt6/QtCore/q20iterator.h \
@@ -326,6 +329,8 @@ sil_tools_autogen/timestamp: /home/silverko/Dokumenty/Programing/Github/SilTool/
   /usr/include/qt6/QtCore/qendian.h \
   /usr/include/qt6/QtCore/qeventloop.h \
   /usr/include/qt6/QtCore/qexceptionhandling.h \
+  /usr/include/qt6/QtCore/qfile.h \
+  /usr/include/qt6/QtCore/qfiledevice.h \
   /usr/include/qt6/QtCore/qflags.h \
   /usr/include/qt6/QtCore/qfloat16.h \
   /usr/include/qt6/QtCore/qforeach.h \
@@ -473,6 +478,8 @@ sil_tools_autogen/timestamp: /home/silverko/Dokumenty/Programing/Github/SilTool/
   /usr/include/qt6/QtWidgets/QMainWindow \
   /usr/include/qt6/QtWidgets/QPlainTextEdit \
   /usr/include/qt6/QtWidgets/QPushButton \
+  /usr/include/qt6/QtWidgets/QStackedWidget \
+  /usr/include/qt6/QtWidgets/QTextEdit \
   /usr/include/qt6/QtWidgets/QVBoxLayout \
   /usr/include/qt6/QtWidgets/QWidget \
   /usr/include/qt6/QtWidgets/qabstractbutton.h \
@@ -489,6 +496,7 @@ sil_tools_autogen/timestamp: /home/silverko/Dokumenty/Programing/Github/SilTool/
   /usr/include/qt6/QtWidgets/qplaintextedit.h \
   /usr/include/qt6/QtWidgets/qpushbutton.h \
   /usr/include/qt6/QtWidgets/qsizepolicy.h \
+  /usr/include/qt6/QtWidgets/qstackedwidget.h \
   /usr/include/qt6/QtWidgets/qtabwidget.h \
   /usr/include/qt6/QtWidgets/qtextedit.h \
   /usr/include/qt6/QtWidgets/qtwidgets-config.h \
@@ -1254,6 +1262,16 @@ sil_tools_autogen/timestamp: /home/silverko/Dokumenty/Programing/Github/SilTool/
 
 /usr/lib64/cmake/Qt6/QtPublicSbomOpsHelpers.cmake:
 
+/usr/lib64/cmake/Qt6/QtPublicSbomHelpers.cmake:
+
+/usr/lib64/cmake/Qt6/QtPublicSbomGenerationHelpers.cmake:
+
+/usr/lib64/cmake/Qt6Gui/Qt6QWebpPluginAdditionalTargetInfo.cmake:
+
+/usr/lib64/cmake/Qt6DBus/Qt6DBusConfig.cmake:
+
+/usr/lib64/cmake/Qt6/QtPublicPluginHelpers.cmake:
+
 /usr/include/qt6/QtGui/qinputmethod.h:
 
 /usr/include/c++/15/chrono:
@@ -1430,6 +1448,10 @@ CMakeFiles/3.31.10/CMakeCXXCompiler.cmake:
 
 /usr/include/c++/15/bits/stl_bvector.h:
 
+/usr/lib64/cmake/Qt6/QtPublicSbomCpeHelpers.cmake:
+
+/usr/include/c++/15/bits/stl_numeric.h:
+
 /usr/include/c++/15/bits/stl_multiset.h:
 
 /usr/include/qt6/QtGui/qbrush.h:
@@ -1520,9 +1542,11 @@ CMakeFiles/3.31.10/CMakeCXXCompiler.cmake:
 
 /usr/include/qt6/QtWidgets/QMainWindow:
 
-/usr/lib64/cmake/Qt6/QtPublicSbomGenerationHelpers.cmake:
-
 /usr/include/qt6/QtWidgets/qlayoutitem.h:
+
+/usr/lib64/cmake/Qt6/QtPublicSbomAttributionHelpers.cmake:
+
+/usr/include/c++/15/x86_64-redhat-linux/bits/atomic_word.h:
 
 /usr/lib64/cmake/Qt6Gui/Qt6QMinimalIntegrationPluginTargets-relwithdebinfo.cmake:
 
@@ -1543,6 +1567,10 @@ CMakeFiles/3.31.10/CMakeCXXCompiler.cmake:
 /usr/lib64/cmake/Qt6DBusTools/Qt6DBusToolsAdditionalTargetInfo.cmake:
 
 /usr/include/c++/15/bits/streambuf_iterator.h:
+
+/usr/lib64/cmake/Qt6/QtPublicSbomDepHelpers.cmake:
+
+/usr/include/bits/types.h:
 
 /usr/include/qt6/QtCore/qiodevice.h:
 
@@ -1854,6 +1882,8 @@ sil_tools_autogen/moc_predefs.h:
 
 /usr/include/qt6/QtWidgets/qgridlayout.h:
 
+/usr/include/c++/15/filesystem:
+
 /usr/include/qt6/QtCore/qshareddata_impl.h:
 
 /usr/include/bits/sched.h:
@@ -1866,13 +1896,17 @@ sil_tools_autogen/moc_predefs.h:
 
 /usr/include/c++/15/bits/uses_allocator.h:
 
-/usr/share/cmake/Modules/CMakeGenericSystem.cmake:
-
-/usr/include/ctype.h:
-
 /usr/include/bits/waitflags.h:
 
 /usr/include/qt6/QtCore/qcompilerdetection.h:
+
+/usr/lib64/cmake/Qt6DBusTools/Qt6DBusToolsConfigVersionImpl.cmake:
+
+/usr/lib64/cmake/Qt6/QtPublicSbomFileHelpers.cmake:
+
+/usr/include/c++/15/bits/postypes.h:
+
+/usr/include/qt6/QtGui/QTransform:
 
 /usr/share/cmake/Modules/Compiler/CMakeCommonCompilerMacros.cmake:
 
@@ -1932,6 +1966,8 @@ sil_tools_autogen/moc_predefs.h:
 
 /usr/include/qt6/QtCore/qcontainertools_impl.h:
 
+/usr/include/qt6/QtWidgets/QTextEdit:
+
 /usr/lib64/cmake/Qt6GuiTools/Qt6GuiToolsConfigVersionImpl.cmake:
 
 /usr/include/c++/15/tuple:
@@ -1957,6 +1993,8 @@ sil_tools_autogen/moc_predefs.h:
 /usr/include/c++/15/bits/new_allocator.h:
 
 /usr/include/qt6/QtCore/q20functional.h:
+
+/usr/include/qt6/QtCore/qfiledevice.h:
 
 /usr/include/errno.h:
 
@@ -2058,6 +2096,10 @@ sil_tools_autogen/moc_predefs.h:
 
 /usr/include/qt6/QtGui/qtgui-config.h:
 
+/usr/share/cmake/Modules/CMakeGenericSystem.cmake:
+
+/usr/include/ctype.h:
+
 /usr/include/endian.h:
 
 /usr/include/qt6/QtCore/qstringbuilder.h:
@@ -2094,6 +2136,8 @@ sil_tools_autogen/moc_predefs.h:
 
 /usr/include/qt6/QtWidgets/qwidget.h:
 
+/usr/include/qt6/QtCore/QFile:
+
 /usr/include/qt6/QtCore/QRect:
 
 /usr/lib64/cmake/Qt6Gui/Qt6QMinimalEglIntegrationPluginTargets-relwithdebinfo.cmake:
@@ -2109,6 +2153,12 @@ sil_tools_autogen/moc_predefs.h:
 /usr/include/qt6/QtCore/qtformat_impl.h:
 
 /usr/include/qt6/QtCore/QSizeF:
+
+/usr/include/qt6/QtCore/QTextStream:
+
+/usr/include/c++/15/debug/assertions.h:
+
+/usr/include/qt6/QtWidgets/QPushButton:
 
 /usr/lib64/cmake/Qt6Core/Qt6CoreVersionlessAliasTargets.cmake:
 
@@ -2188,14 +2238,6 @@ sil_tools_autogen/moc_predefs.h:
 
 /usr/include/qt6/QtCore/qcontiguouscache.h:
 
-/usr/lib64/cmake/Qt6DBusTools/Qt6DBusToolsConfigVersionImpl.cmake:
-
-/usr/include/c++/15/bits/postypes.h:
-
-/usr/include/qt6/QtGui/QTransform:
-
-/usr/lib64/cmake/Qt6/QtPublicSbomFileHelpers.cmake:
-
 /usr/include/c++/15/x86_64-redhat-linux/bits/gthr.h:
 
 /usr/include/qt6/QtCore/qcoreapplication.h:
@@ -2217,6 +2259,8 @@ sil_tools_autogen/moc_predefs.h:
 /usr/include/qt6/QtCore/qendian.h:
 
 /usr/include/qt6/QtCore/qexceptionhandling.h:
+
+/usr/include/qt6/QtCore/qfile.h:
 
 /usr/include/qt6/QtCore/qfloat16.h:
 
@@ -2366,6 +2410,12 @@ sil_tools_autogen/moc_predefs.h:
 
 /usr/lib64/cmake/Qt6/FindWrapAtomic.cmake:
 
+/usr/share/cmake/Modules/Internal/CheckCompilerFlag.cmake:
+
+/usr/lib64/cmake/Qt6/QtPublicPluginHelpers_v2.cmake:
+
+/usr/include/qt6/QtCore/qtmetamacros.h:
+
 /usr/include/qt6/QtCore/qtpreprocessorsupport.h:
 
 /usr/include/qt6/QtCore/qtypeinfo.h:
@@ -2480,9 +2530,7 @@ sil_tools_autogen/moc_predefs.h:
 
 /usr/include/qt6/QtWidgets/QPlainTextEdit:
 
-/usr/include/c++/15/debug/assertions.h:
-
-/usr/include/qt6/QtWidgets/QPushButton:
+/usr/include/qt6/QtWidgets/QStackedWidget:
 
 /usr/lib64/cmake/Qt6Gui/Qt6QIbusPlatformInputContextPluginTargets.cmake:
 
@@ -2504,11 +2552,15 @@ sil_tools_autogen/moc_predefs.h:
 
 /usr/include/qt6/QtWidgets/qpushbutton.h:
 
+/usr/include/qt6/QtWidgets/qstackedwidget.h:
+
+/usr/include/c++/15/tr1/hypergeometric.tcc:
+
+/usr/include/qt6/QtCore/qlocale.h:
+
+/usr/include/time.h:
+
 /usr/include/qt6/QtWidgets/qtwidgetsglobal.h:
-
-/usr/include/c++/15/bits/stl_numeric.h:
-
-/usr/lib64/cmake/Qt6/QtPublicSbomCpeHelpers.cmake:
 
 /usr/lib64/cmake/Qt6CoreTools/Qt6CoreToolsTargets-relwithdebinfo.cmake:
 
@@ -2531,12 +2583,6 @@ sil_tools_autogen/moc_predefs.h:
 /usr/include/sys/select.h:
 
 /usr/include/sys/types.h:
-
-/usr/include/c++/15/tr1/hypergeometric.tcc:
-
-/usr/include/qt6/QtCore/qlocale.h:
-
-/usr/include/time.h:
 
 /usr/lib/gcc/x86_64-redhat-linux/15/include/stdarg.h:
 
@@ -2575,25 +2621,3 @@ sil_tools_autogen/moc_predefs.h:
 /usr/lib64/cmake/Qt6/QtPublicFinalizerHelpers.cmake:
 
 /usr/lib64/cmake/Qt6/QtPublicFindPackageHelpers.cmake:
-
-/usr/lib64/cmake/Qt6Gui/Qt6QWebpPluginAdditionalTargetInfo.cmake:
-
-/usr/lib64/cmake/Qt6DBus/Qt6DBusConfig.cmake:
-
-/usr/lib64/cmake/Qt6/QtPublicPluginHelpers.cmake:
-
-/usr/share/cmake/Modules/Internal/CheckCompilerFlag.cmake:
-
-/usr/include/qt6/QtCore/qtmetamacros.h:
-
-/usr/lib64/cmake/Qt6/QtPublicPluginHelpers_v2.cmake:
-
-/usr/include/c++/15/x86_64-redhat-linux/bits/atomic_word.h:
-
-/usr/lib64/cmake/Qt6/QtPublicSbomAttributionHelpers.cmake:
-
-/usr/include/bits/types.h:
-
-/usr/lib64/cmake/Qt6/QtPublicSbomDepHelpers.cmake:
-
-/usr/lib64/cmake/Qt6/QtPublicSbomHelpers.cmake:

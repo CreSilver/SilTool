@@ -202,6 +202,7 @@
  mdp:/usr/include/c++/15/ext/numeric_traits.h
  mdp:/usr/include/c++/15/ext/string_conversions.h
  mdp:/usr/include/c++/15/ext/type_traits.h
+ mdp:/usr/include/c++/15/filesystem
  mdp:/usr/include/c++/15/functional
  mdp:/usr/include/c++/15/initializer_list
  mdp:/usr/include/c++/15/iosfwd
@@ -269,11 +270,13 @@
  mdp:/usr/include/linux/types.h
  mdp:/usr/include/locale.h
  mdp:/usr/include/pthread.h
+ mdp:/usr/include/qt6/QtCore/QFile
  mdp:/usr/include/qt6/QtCore/QList
  mdp:/usr/include/qt6/QtCore/QObject
  mdp:/usr/include/qt6/QtCore/QRect
  mdp:/usr/include/qt6/QtCore/QSize
  mdp:/usr/include/qt6/QtCore/QSizeF
+ mdp:/usr/include/qt6/QtCore/QTextStream
  mdp:/usr/include/qt6/QtCore/q17memory.h
  mdp:/usr/include/qt6/QtCore/q20functional.h
  mdp:/usr/include/qt6/QtCore/q20iterator.h
@@ -322,6 +325,8 @@
  mdp:/usr/include/qt6/QtCore/qendian.h
  mdp:/usr/include/qt6/QtCore/qeventloop.h
  mdp:/usr/include/qt6/QtCore/qexceptionhandling.h
+ mdp:/usr/include/qt6/QtCore/qfile.h
+ mdp:/usr/include/qt6/QtCore/qfiledevice.h
  mdp:/usr/include/qt6/QtCore/qflags.h
  mdp:/usr/include/qt6/QtCore/qfloat16.h
  mdp:/usr/include/qt6/QtCore/qforeach.h
@@ -469,6 +474,8 @@
  mdp:/usr/include/qt6/QtWidgets/QMainWindow
  mdp:/usr/include/qt6/QtWidgets/QPlainTextEdit
  mdp:/usr/include/qt6/QtWidgets/QPushButton
+ mdp:/usr/include/qt6/QtWidgets/QStackedWidget
+ mdp:/usr/include/qt6/QtWidgets/QTextEdit
  mdp:/usr/include/qt6/QtWidgets/QVBoxLayout
  mdp:/usr/include/qt6/QtWidgets/QWidget
  mdp:/usr/include/qt6/QtWidgets/qabstractbutton.h
@@ -485,6 +492,7 @@
  mdp:/usr/include/qt6/QtWidgets/qplaintextedit.h
  mdp:/usr/include/qt6/QtWidgets/qpushbutton.h
  mdp:/usr/include/qt6/QtWidgets/qsizepolicy.h
+ mdp:/usr/include/qt6/QtWidgets/qstackedwidget.h
  mdp:/usr/include/qt6/QtWidgets/qtabwidget.h
  mdp:/usr/include/qt6/QtWidgets/qtextedit.h
  mdp:/usr/include/qt6/QtWidgets/qtwidgets-config.h
