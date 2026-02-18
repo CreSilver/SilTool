@@ -20,9 +20,10 @@ target_link_libraries(sil_tools PRIVATE Qt6::Widgets)
 
 # --- AUTOMATICKÉ KOPÍROVÁNÍ SOUBORŮ ---
 file(COPY 
-    start.txt 
-    c_dev.txt 
-    web_dev.txt 
-    asm_dev.txt 
+    start.html 
+    c_dev.html 
+    web_dev.html 
+    asm_dev.html 
+    style.css
     DESTINATION ${CMAKE_CURRENT_BINARY_DIR}
 )

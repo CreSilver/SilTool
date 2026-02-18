@@ -86,7 +86,6 @@ class Window : public QWidget{ // Okno
         QTextEdit* createDisplayPage(QString fileName) {
             QTextEdit *edit = new QTextEdit(this);
             edit->setReadOnly(true);
-            edit->setStyleSheet("font-size: 16px; padding: 20px; background-color: #1e1e1e; color: #d4d4d4; border: none;");
 
             // Načtení souboru
             QFile file(fileName);
@@ -121,10 +120,10 @@ class Window : public QWidget{ // Okno
             mainLayout->addWidget(contentStack);
 
             // Propojení souborů
-            pageStart = createDisplayPage("start.txt");
-            pageWeb = createDisplayPage("web_dev.txt");
-            pageCE = createDisplayPage("c_dev.txt");
-            pageASM = createDisplayPage("asm_dev.txt");
+            pageStart = createDisplayPage("start.html");
+            pageWeb = createDisplayPage("web_dev.html");
+            pageCE = createDisplayPage("c_dev.html");
+            pageASM = createDisplayPage("asm_dev.html");
 
             // Propojení tlačítek s přepínáním stránek
             contentStack->setCurrentIndex(0);
