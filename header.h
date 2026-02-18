@@ -16,6 +16,9 @@
 #include <QLabel>
 #include <QMainWindow>
 #include <QApplication>
+#include <QtWebEngineWidgets/qwebengineview.h>
+#include <QUrl>
+#include <QDir>
 //
 //
 //Konstanty
@@ -78,25 +81,19 @@ class Window : public QWidget{ // Okno
     Q_OBJECT
     private:
         QStackedWidget *contentStack;
-        QTextEdit *pageStart;
-        QTextEdit *pageCE;
-        QTextEdit *pageWeb;
-        QTextEdit *pageASM;
+        QWebEngineView *pageStart;
+        QWebEngineView *pageWeb;
+        QWebEngineView *pageCE;
+        QWebEngineView *pageASM;
 
-        QTextEdit* createDisplayPage(QString fileName) {
-            QTextEdit *edit = new QTextEdit(this);
-            edit->setReadOnly(true);
+        QWebEngineView* createDisplayPage(QString fileName) {
+        QWebEngineView *view = new QWebEngineView(this);
 
-            // Načtení souboru
-            QFile file(fileName);
-            if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-                QTextStream in(&file);
-                edit->setHtml(in.readAll());
-                file.close();
-            } else {
-                edit->setPlainText("Chyba: Soubor " + fileName + " nebyl nalezen ve složce build!");
-            }
-            return edit;
+        QString path = QDir::currentPath() + "/" + fileName;
+        view->setUrl(QUrl::fromLocalFile(path));
+        view->setContextMenuPolicy(Qt::NoContextMenu);
+        
+        return view;
         };
 
 
@@ -104,7 +101,10 @@ class Window : public QWidget{ // Okno
         Window(QWidget *parent=nullptr):QWidget(parent){
             this->setWindowTitle("SilTool - DevVersion");           // Název aplikace
             this->resize(1180, 720);
-            this->setStyleSheet("background-color: #40464c;");
+            this->setStyleSheet(
+                "SideBar {border-right: 1px solid #181a1f;}"
+                "QLabel {font-weight: bold; margin-bottom: 20px;}"
+            );
 
             // Nastavení layout
             QHBoxLayout *mainLayout = new QHBoxLayout(this);

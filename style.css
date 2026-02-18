@@ -1,0 +1,12 @@
+body{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    background: rgb(25, 25, 25);
+    color: #eeeeee;
+    /*font-family: 'Courier New', Courier, monospace;   for programing conteiners*/
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+section{margin: 0 1rem 0 1rem;}
+a{color: #a5e1ae;}

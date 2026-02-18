@@ -10,13 +10,13 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Najde Qt6
-find_package(Qt6 REQUIRED COMPONENTS Widgets)
+find_package(Qt6 REQUIRED COMPONENTS Widgets WebEngineWidgets)
 
 # Definice spustitelného souboru
 add_executable(sil_tools main.cpp header.h)
 
 # Linkování knihoven
-target_link_libraries(sil_tools PRIVATE Qt6::Widgets)
+target_link_libraries(sil_tools PRIVATE Qt6::Widgets Qt6::WebEngineWidgets)
 
 # --- AUTOMATICKÉ KOPÍROVÁNÍ SOUBORŮ ---
 file(COPY 
@@ -24,6 +24,5 @@ file(COPY
     c_dev.html 
     web_dev.html 
     asm_dev.html 
-    style.css
     DESTINATION ${CMAKE_CURRENT_BINARY_DIR}
 )
