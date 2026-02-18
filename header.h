@@ -91,7 +91,7 @@ class Window : public QWidget{ // Okno
             QFile file(fileName);
             if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
                 QTextStream in(&file);
-                edit->setPlainText(in.readAll());
+                edit->setHtml(in.readAll());
                 file.close();
             } else {
                 edit->setPlainText("Chyba: Soubor " + fileName + " nebyl nalezen ve složce build!");
