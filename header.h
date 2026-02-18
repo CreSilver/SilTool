@@ -37,7 +37,7 @@ class SideBar : public QFrame{ // SideBar
 
             // Sidebar prvky
             //Logo
-            QLabel *logoText = new QLabel("SilTool", this);
+            QLabel *logoText = new QLabel("SilverTool", this);
             logoText->setAlignment(Qt::AlignCenter);
             logoText->setStyleSheet("font-size: 25px; color: #121212; padding-bottom: 50px;padding-top:25px");
 
@@ -99,7 +99,7 @@ class Window : public QWidget{ // Okno
 
     public:
         Window(QWidget *parent=nullptr):QWidget(parent){
-            this->setWindowTitle("SilTool - DevVersion");           // Název aplikace
+            this->setWindowTitle("SilverTool - DevVersion");           // Název aplikace
             this->resize(1180, 720);
             this->setStyleSheet(
                 "SideBar {border-right: 1px solid #181a1f;}"
