@@ -4,16 +4,16 @@ body{
     text-align: center;
     background: rgb(25, 25, 25);
     color: #eeeeee;
-    /*font-family: 'Courier New', Courier, monospace;   for programing conteiners*/
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 h1{font-size: 3rem;text-align: center;}
 section{margin: 0 1rem 0 1rem;text-align: left;}
 a{color: #a5e1ae;}
+/*.code *{font-family: inherit !important;}*/
 .code{
+    font-family: 'Consolas', 'Menlo', 'DejaVu Sans Mono', 'Liberation Mono', monospace !important;
     color: rgb(207, 168, 251);
-    font-family: 'Courier New', Courier, monospace;   
     text-align: left;
     background: rgb(65, 65, 65);
     width: 100%;

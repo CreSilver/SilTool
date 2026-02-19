@@ -103,7 +103,7 @@ class Window : public QWidget{ // Okno
 
     public:
         Window(QWidget *parent=nullptr):QWidget(parent){
-            this->setWindowTitle("SilverTool - Prototip");           // Název aplikace
+            this->setWindowTitle("SilverTool - Prototyp");           // Název aplikace
             this->resize(1180, 720);
             this->setStyleSheet(
                 "SideBar {border-right: 1px solid #181a1f;}"
