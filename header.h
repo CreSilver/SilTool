@@ -31,19 +31,18 @@ class SideBar : public QFrame{ // SideBar
     public:
         SideBar(QWidget *parent = nullptr) : QFrame(parent){
             this->setFixedWidth(SIDEBAR_WIDTH);
-            this->setStyleSheet("background-color: #bdddca;");
+            this->setStyleSheet("background-color: #c8dccf;");
             QVBoxLayout *layout = new QVBoxLayout(this);
 
 
             // Sidebar prvky
             //Logo
-            QLabel *logoText = new QLabel("SilverTool", this);
-            logoText->setAlignment(Qt::AlignCenter);
-            logoText->setStyleSheet("font-size: 35px; color: #121212;padding-top:25px");
-            QLabel *logoText2 = new QLabel("SilverTool", this);
-            logoText2->setAlignment(Qt::AlignCenter);
-            logoText2->setStyleSheet("font-size: 25px; color: #121212; padding-bottom: 50px");
-
+            QLabel *logoText = new QLabel(this);
+            logoText->setText(
+              "<div style='text-align: center;'>"
+              "<span style='font-size: 40px; font-weight: bold;color: #121212;padding-top: 15px;'>SilverTool</span><br>"
+              "<span style='font-size: 18px;margin-top: -5px;color: #121212;padding-bottom: 15px;'>Prototyp</span>"
+              "</div>");
 
 
             QPushButton *btnCD = new QPushButton("C/C++ Dev.", this);

@@ -6,7 +6,7 @@ rm -rf build
 mkdir build
 cd build
 cmake ..
-makee
+make
 
 ### RoudeMap - Actual in progress
 
