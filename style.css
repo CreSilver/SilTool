@@ -8,5 +8,24 @@ body{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-section{margin: 0 1rem 0 1rem;}
+h1{font-size: 3rem;text-align: center;}
+section{margin: 0 1rem 0 1rem;text-align: left;}
 a{color: #a5e1ae;}
+.code{
+    color: rgb(207, 168, 251);
+    font-family: 'Courier New', Courier, monospace;   
+    text-align: left;
+    background: rgb(65, 65, 65);
+    width: 100%;
+    padding: 1rem 0 1rem 0;
+    border-radius: 5px;
+}
+.code div{
+    margin-left: 1rem;
+}
+.codename{
+    color: rgb(121, 121, 121);
+}
+ul li span{
+    color: rgb(168, 225, 251);
+}

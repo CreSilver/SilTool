@@ -1,1 +1,74 @@
-dfsfa
+<html>
+    <head>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+    
+
+    <section>
+        <br><h1>C/C++ dokumentation</h1><br>
+    </section>
+
+
+    <section>
+        <h2>Základní struktura</h2>
+        <p>Toto je záhladní struktura veškerých C/C++ souborů.</p>
+        <div class="code">
+            <span class="codename">&nbsp;main.c; main.cc; main.cpp</span><br><br>
+            <div>
+                <span>// Knihovny</span>
+                <br><span>#include &lt;stdio.h&gt;</span>
+                <br><span>#include &lt;stdlib.h&gt;</span>
+                <br>
+                <br>
+                <br><span>// Hlavní funkce</span>
+                <br><span>main(){</span>
+                <br>
+                <br><span>&nbsp;&nbsp;return 0;</span>
+                <br><span>}</span>
+            </div>
+        </div>
+    </section>
+
+
+    <br><section>
+        <h2>Knihovny</h2>
+        <p>Mezi mejzákladnější knihovny patří:</p>
+        <ul>
+            <li><span>stdio.h</span> - pro vstup a výstup</li>
+            <li><span>stdlib.h</span> - pro práci s pamětí a konverzi</li>
+            <li><span>string.h</span> - pro práci s řetězci</li>
+            <li><span>math.h</span> - pro matematické funkce</li>
+        </ul>
+        <p>Specificky pouze C++:</p>
+        <ul>
+            <li><span>iostream.h</span> - pro vstup a výstup (std::cin, std::cout)</li>
+            <li>Pro lepší práci s std je lepší vypsat příkaz jako samotný <span>using namespace std;</span>. Nefunguje bez <span>iostream.h</span>!</li>
+            <li><span>memory.h</span> - chytré ukazatele (smart pointers), co za tebe mažou paměť</li>
+            <li><span>vector.h</span> - pro dynamické pole (std::vector)</li>
+        </ul><br>
+
+        <p>Mezi další dobré knihovny patří:</p>
+        <ul>
+            <li><span>time.h</span> - pro práci s časem</li>
+            <li><span>locale.h</span> - pro práci s lokalizací / jazyky</li>
+            <li><span>stdbool.h</span> - pro práci s logickými true, false</li>
+            <li><span>ctype.h</span> - pro práci s typy znaků (malé písmeno, velké písmeno, atd.)</li>
+            <li><span>limits.h</span> - definuje limity pro celočíselné typy (INT_MAX, atd.)</li>
+            <li><span>float.h</span> - limity pro desetinná čísla</li>
+            <li><span>assert.h</span> - pro diagnostiku a ladění (makro assert)</li>
+        </ul>
+        <p>Specificky pouze C++:</p>
+        <ul>
+            <li><span>pthread.h</span> - vícevláknové programování (multithreading)</li>
+            <li><span>sys/socket.h</span> - síťová komunikace (sockety)</li>
+            <li><span>signal.h</span> - zpracování systémových signálů (např. Ctrl+C)</li>
+            <li><span>algorithm.h</span> - pro algoritmy (std::sort, atd.)</li>
+        </ul>
+    </section>
+
+    
+</body>
+</html>

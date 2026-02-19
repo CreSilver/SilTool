@@ -31,7 +31,7 @@ class SideBar : public QFrame{ // SideBar
     public:
         SideBar(QWidget *parent = nullptr) : QFrame(parent){
             this->setFixedWidth(SIDEBAR_WIDTH);
-            this->setStyleSheet("background-color: #c8d2da;");
+            this->setStyleSheet("background-color: #bdddca;");
             QVBoxLayout *layout = new QVBoxLayout(this);
 
 
@@ -39,7 +39,12 @@ class SideBar : public QFrame{ // SideBar
             //Logo
             QLabel *logoText = new QLabel("SilverTool", this);
             logoText->setAlignment(Qt::AlignCenter);
-            logoText->setStyleSheet("font-size: 25px; color: #121212; padding-bottom: 50px;padding-top:25px");
+            logoText->setStyleSheet("font-size: 35px; color: #121212;padding-top:25px");
+            QLabel *logoText2 = new QLabel("SilverTool", this);
+            logoText2->setAlignment(Qt::AlignCenter);
+            logoText2->setStyleSheet("font-size: 25px; color: #121212; padding-bottom: 50px");
+
+
 
             QPushButton *btnCD = new QPushButton("C/C++ Dev.", this);
             btnCD->setStyleSheet("color: #121212;");
@@ -59,8 +64,8 @@ class SideBar : public QFrame{ // SideBar
 
 
             //Signály
-            connect(btnCD, &QPushButton::clicked, this, &SideBar::CDclick);
             connect(btnWD, &QPushButton::clicked, this, &SideBar::WDclick);
+            connect(btnCD, &QPushButton::clicked, this, &SideBar::CDclick);
             connect(btnASM, &QPushButton::clicked, this, &SideBar::ASMclick);
         };
 
@@ -133,8 +138,8 @@ class Window : public QWidget{ // Okno
             contentStack->addWidget(pageCE);  
             contentStack->addWidget(pageASM);
 
-            connect(menu, &SideBar::CDclick, [=](){ contentStack->setCurrentIndex(1); });
-            connect(menu, &SideBar::WDclick, [=](){ contentStack->setCurrentIndex(2); });
+            connect(menu, &SideBar::WDclick, [=](){ contentStack->setCurrentIndex(1); });
+            connect(menu, &SideBar::CDclick, [=](){ contentStack->setCurrentIndex(2); });
             connect(menu, &SideBar::ASMclick, [=](){ contentStack->setCurrentIndex(3); });
 
             
