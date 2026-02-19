@@ -13,8 +13,9 @@
 
 
     <section>
-        <h2>Základní struktura</h2>
+        <h2>Základní struktury</h2>
         <p>Toto je záhladní struktura veškerých C/C++ souborů.</p>
+        <p>Struktura programu:</p>
         <div class="code">
             <span class="codename">&nbsp;main.c; main.cc; main.cpp</span><br><br>
             <div>
@@ -29,11 +30,34 @@
                 <br><span>&nbsp;&nbsp;return 0;</span>
                 <br><span>}</span>
             </div>
+        </div><br>
+        <p>Struktura tříd:</p>
+        <div class="code">
+            <span class="codename">&nbsp;main.cc; main.cpp</span><br><br>
+            <div>
+                <span>// Třída</span>
+                <br><span>class MyClass{</span>
+                <br><span>&nbsp;&nbsp;private:</span>
+                <br><span>&nbsp;&nbsp;&nbsp;&nbsp;int variables;</span>
+                <br>
+                <br>
+                <br><span>&nbsp;&nbsp;public:</span>
+                <br><span>&nbsp;&nbsp;&nbsp;&nbsp;NazevTridy(){ // Konstruktor</span>
+                <br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Nastavení výchozích hodnot</span>
+                <br><span>&nbsp;&nbsp;&nbsp;&nbsp;}</span>
+                <br>
+                <br><span>&nbsp;&nbsp;&nbsp;&nbsp;virtual ~NazevTridy(){ // Destruktor</span>
+                <br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Tady uklidíš paměť, zavřeš soubory atd.</span>
+                <br><span>&nbsp;&nbsp;&nbsp;&nbsp;}</span>
+                <br>
+                <br><span>&nbsp;&nbsp;&nbsp;&nbsp;void naseFunkce(){} // Funkce třídy</span>
+                <br><span>};// Uzavření třídy</span>
+            </div>
         </div>
     </section>
 
 
-    <br><section>
+    <br><br><section>
         <h2>Knihovny</h2>
         <p>Mezi mejzákladnější knihovny patří:</p>
         <ul>
@@ -67,6 +91,11 @@
             <li><span>signal.h</span> - zpracování systémových signálů (např. Ctrl+C)</li>
             <li><span>algorithm.h</span> - pro algoritmy (std::sort, atd.)</li>
         </ul>
+    </section>
+
+
+    <br><section>
+        <h2></h2>
     </section>
 
     

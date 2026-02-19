@@ -39,10 +39,10 @@ class SideBar : public QFrame{ // SideBar
             //Logo
             QLabel *logoText = new QLabel(this);
             logoText->setText(
-              "<div style='text-align: center;'>"
-              "<span style='font-size: 40px; font-weight: bold;color: #121212;padding-top: 15px;'>SilverTool</span><br>"
-              "<span style='font-size: 18px;margin-top: -5px;color: #121212;padding-bottom: 15px;'>Prototyp</span>"
-              "</div>");
+              "<div style='text-align: center;'><br>"
+              "<span style='font-size: 40px; font-weight: bold;color: #121212;'>SilverTool</span><br>"
+              "<span style='font-size: 18px;margin-top: -5px;color: #121212;'>Prototyp</span>"
+              "<br></div>");
 
 
             QPushButton *btnCD = new QPushButton("C/C++ Dev.", this);
@@ -103,7 +103,7 @@ class Window : public QWidget{ // Okno
 
     public:
         Window(QWidget *parent=nullptr):QWidget(parent){
-            this->setWindowTitle("SilverTool - DevVersion");           // Název aplikace
+            this->setWindowTitle("SilverTool - Prototip");           // Název aplikace
             this->resize(1180, 720);
             this->setStyleSheet(
                 "SideBar {border-right: 1px solid #181a1f;}"
