@@ -10,6 +10,7 @@ makee
 
 ### RoudeMap - Actual in progress
 
-1) Update code: give user possibility to click in a links and be transfare between pages in aplication
-2) Update start.html to be possible to change scene via html links
-3) Make rnote file with sites structure
+1) Make rnote file with sites structure
+2) Make simple web documentation
+3) Make simple C/C++ documentation
+4) Make simple Assembler documentation
