@@ -1,4 +1,4 @@
-# SilTool
+# SillverTool Prototyp
 
 ### Kompilace
 
@@ -8,9 +8,7 @@ cd build
 cmake ..
 make
 
-### RoudeMap - Actual in progress
+### RoudeMap
 
-1) Make rnote file with sites structure
-2) Make simple web documentation
-3) Make simple C/C++ documentation
-4) Make simple Assembler documentation
+1) Make simple web documentation
+2) Add some widgets to sidebar
