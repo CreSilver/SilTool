@@ -20,12 +20,8 @@ a{color: #a5e1ae;}
     padding: 1rem 0 1rem 0;
     border-radius: 5px;
 }
-.code div{
-    margin-left: 1rem;
-}
-.codename{
-    color: rgb(121, 121, 121);
-}
-ul li span{
-    color: rgb(168, 225, 251);
-}
+.code div{margin-left: 1rem;}
+.codename{color: rgb(121, 121, 121);}
+ul li span{color: rgb(168, 225, 251);}
+td{color: rgb(207, 168, 251)}
+th{font-weight: 500;text-decoration: underline;}

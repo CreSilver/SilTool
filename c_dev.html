@@ -68,7 +68,7 @@
         </ul>
         <p>Specificky pouze C++:</p>
         <ul>
-            <li><span>iostream.h</span> - pro vstup a výstup (std::cin, std::cout)</li>
+            <li><span>iostream.h</span> - pro vstup a výstup (std::cin, std::cout). Používá se místo <span>stdio.h</span> i když je použitelná.</li>
             <li>Pro lepší práci s std je lepší vypsat příkaz jako samotný <span>using namespace std;</span>. Nefunguje bez <span>iostream.h</span>!</li>
             <li><span>memory.h</span> - chytré ukazatele (smart pointers), co za tebe mažou paměť</li>
             <li><span>vector.h</span> - pro dynamické pole (std::vector)</li>
@@ -95,8 +95,75 @@
 
 
     <br><section>
-        <h2></h2>
+        <h2>Speciální syntaxe C++</h2>
+        <p>1) <b>Scope Resolution Operator</b> je označová jako :: a používá se pokud existuje více věcí se stejným názvem. Primárné se používá u 3 hlavních situací:</p>
+        <ul>
+            <li>Přístup k namaspace std - std::cout - jdi do std a najdi tam cout</li>
+            <li>
+                Definice metody třídy v .h souboru. Zdělujěš tím ke které třídě patří:
+                <br>
+                <div class="code">
+                    <span class="codename">&nbsp;main.cc; main.cpp</span><br><br>
+                    <div>
+                        <span style="color: rgb(207, 168, 251);">// V hlavičce: class MojeTrida { void pozdrav(); };</span>
+                        <br><span style="color: rgb(207, 168, 251);">void MojeTrida::pozdrav(){}</span>
+                    </div>
+                </div>
+            </li>
+            <li>Přístup ke globální proměnné - pokud máš v kodu globální a lokální proměnou se stejným názvem tak funkce vždy prioritizují lokální funkce, ALE pokud dáš před proměnou :: tak se to aoutomaticky odkáže na globální proměnou a lokální proměnná se nevyužije.</li>
+        </ul>
+        <h3>Platí jak pro C tak pro C++, ale primární využití je v C++</h3>
+        <p>2) <b>Komunikace s třídou / strukturou</b> pomocí . a -></p>
+        <ul>
+            <li>-> se poyžívá jako ukazatel neboli pointer, když se něco hledá a provádí se to jinde</li>
+            <li>. se používá pokud je objekt tady a přítomen</li>
+        </ul>
     </section>
+
+
+    <br><section>
+        <h2>Propojení s Assemblerem</h2>
+        <p>Assembler dokumentace <a href="asm_dev.html">zde</a></p>
+        <p>Deklarace funkcí, které se budou dělat externě v ASM:</p>
+        <div class="code">
+            <span class="codename">&nbsp;main.c; main.cc; main.cpp</span><br><br>
+            <div>
+                <span>void MyFunc();</span>
+            </div>
+        </div>       
+        <br><div class="code">
+            <span class="codename">&nbsp;main.c; main.cc; main.cpp</span><br><br>
+            <div>
+                <span>extern void MyFunc();</span>
+            </div>
+        </div>
+        <p>Deklarace proměnných:</p>
+        <p>Veškeré proměnné musí být deklarovány jako globální jinak k nim nebude mít Assembler přístup. Taktéž se neprovádí standartní deklarace obyčejně podle int, char .atd, ale obvykle pomocí Uint typů. To ale neznamená, že se pomocí nich jako je třeba char nelze deklarovat.</p>
+        <p>Specificky podle:</p>
+        <div class="code">
+            <span class="codename">&nbsp;main.c; main.cc; main.cpp</span><br><br>
+            <div>
+                <span>uint64_t</span>
+                <br><span>uint32_t</span>
+                <br><span>uint16_t</span>
+                <br><span>uint8_t</span>
+            </div>
+        </div>
+        <p>Příklad deklarace pole:</p>
+        <div class="code">
+            <span class="codename">&nbsp;main.c; main.cc; main.cpp</span><br><br>
+            <div>
+                <span>char g_var[5]; // Pole znaků o velikosti 4 prvků</span>
+            </div>
+        </div>
+    </section>
+
+
+    <br><section>
+        <h2>Další dokumentace</h2>
+        <a href="#">https://www.w3schools.com/c/</a><br>
+        <a href="#">https://www.w3schools.com/cpp/</a><br>
+    </section><br>
 
     
 </body>

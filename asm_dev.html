@@ -11,6 +11,137 @@
         <br><h1>Assembly dokumentation</h1><br>
     </section>
 
+
+    <section>
+        <h2>Základní struktury</h2>
+        <p>U Assembleru je základní strukturan rozdílná podle toho v jaké arhitektuře pracujeme. A to jako první zda v x86 nebo v ARM a poté zda 32 bits nebo 64 bits.</p>
+        <p>Struktura pro x86_64:</p>
+        <div class="code">
+            <span class="codename">&nbsp;module.asm; module.s</span><br><br>
+            <div>
+                <span>bits 64</span>
+                <br><span>section .data</span>
+                <br><span>; zde se zapisují proměnné</span>
+                <br>
+                <br>
+                <br><span>section .text</span>
+                <br><span>; zde se zapisuje kod programu jako jsou funkce</span>
+            </div>
+        </div>
+    </section>
+
+
+    <br><section>
+        <h2>Propojení s C/C++</h2>
+        <p>C/C++ dokumentace <a href="c_dev.html">zde</a></p>
+        <h3>Proměnné:</h3>
+        <p>Proměnné se deklarují pomocí <span>extern</span> v section <span>.data</span>.</p>
+        <div class="code">
+            <span class="codename">&nbsp;module.asm; module.s</span><br><br>
+            <div>
+                <span>section .data</span>
+                <br><span>&nbsp;&nbsp;extern g_var</span>
+            </div>
+        </div>
+        <h3>Funkce:</h3>
+        <p>Funkce mají stejnou deklaraci a volání jak klasické ASM funkce. Declarují se v section <span>.text</span> pomocí <span>global</span>, která ukazuje, že dnná funkce je globální.</p>
+        <div class="code">
+            <span class="codename">&nbsp;module.asm; module.s</span><br><br>
+            <div>
+                <span>section .text</span>
+                <br><span>&nbsp;&nbsp;global g_func</span>
+                <br>
+                <br>
+                <br><span>g_func:</span>
+                <br>
+                <br><span>ret  ; ukončení funkce, aby nebyla v loopu</span>
+            </div>
+        </div>
+    </section>
+
+
+    <br><section>
+        <h2>Registry</h2>
+        <p>Vždy se berou spodní bity</p>
+        <img src="registers.png" alt="">
+    </section>
+
+
+    <br><section>
+        <h2>Příkazy</h2>
+        <h3>Základní:</h3>
+        <ul>
+            <li><span>mov</span> - přesouvá proměnné do registru stejné velikosti</li>
+            <li><span>movzx</span> - přesouvá proměnné do většího registru než je proměnná sama a prázdné místo vyplní nulami</li>
+            <li><span>movsx</span> - téměř totožné jako movzx akorát že zachovává znaménko -+</li>
+            <br>
+            <li><span>int</span> - je to interupt neboli přerušení programu volá externě podle zadané hodnoty co se má stát a udělat</li>
+            <li><span>add</span> - je to přičtení k hodnotě</li>
+            <li><span>sub</span> - je to odečtení od hodnoty</li>
+            <br>
+            <li><span>cmp</span> - dělá to samé co sub akorát že výsledek zahodí, používá se u podmíněných skoků <span>JE</span></li>
+            <li><span>dec</span> - od hodnoty odečte 1</li>
+            <li><span>neg</span> - změní znaménko</li>
+            <br>
+            <li><span>and</span> - logický spučin, když na pozici oba vstupy mají 1 tak výsledek je 1, používá se k masce</li>
+            <li><span>or</span> - logický součet, kdzž alespoň jedna hodnota je jedna tak je výsledek 1 jinak 0</li>
+            <li><span>xor</span> - dá jedna pokud se logické proměnné liší jinak dá 0</li>
+            <li><span>not</span> - bitová inverze, otočí všechny bity</li>
+            <li><span>test</span> - dělá to co and ale výsledek zahodí stejně jako cmp</li>
+            <br>
+            <li><span>shl</span> - bitový posun doleva</li>
+            <li><span>shr</span> - bitový posun doprava</li>
+        </ul>
+        <h3>Podmíněné skoky:</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>ASM Skok</th>
+                    <th>Význam anglicky</th>
+                    <th>Kdy skočí (C++ ekvivalent)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>JE</code> / <code>JZ</code></td>
+                    <td>Jump if Equal / Zero</td>
+                    <td><code>==</code> (Jsou si rovny)</td>
+                </tr>
+                <tr>
+                    <td><code>JNE</code> / <code>JNZ</code></td>
+                    <td>Jump if Not Equal / Not Zero&nbsp;&nbsp;&nbsp;</td>
+                    <td><code>!=</code> (Nejsou si rovny)</td>
+                </tr>
+                <tr>
+                    <td><code>JG</code></td>
+                    <td>Jump if Greater</td>
+                    <td><code>&gt;</code> (První je VĚTŠÍ než druhé)</td>
+                </tr>
+                <tr>
+                    <td><code>JGE&nbsp;&nbsp;&nbsp;</code></td>
+                    <td>Jump if Greater or Equal</td>
+                    <td><code>&gt;=</code> (Větší nebo rovno)</td>
+                </tr>
+                <tr>
+                    <td><code>JL</code></td>
+                    <td>Jump if Less</td>
+                    <td><code>&lt;</code> (První je MENŠÍ než druhé)</td>
+                </tr>
+                <tr>
+                    <td><code>JLE</code></td>
+                    <td>Jump if Less or Equal</td>
+                    <td><code>&lt;=</code> (Menší nebo rovno)</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+
+    <br><section>
+        <h2>Další dokumentace</h2>
+        <a href="#">https://www.tutorialspoint.com/assembly_programming/index.html</a><br>
+    </section>
+
     
 </body>
 </html>
