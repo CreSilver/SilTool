@@ -11,4 +11,3 @@ make
 ### RoudeMap
 
 1) Make simple web documentation
-2) Add some widgets to sidebar

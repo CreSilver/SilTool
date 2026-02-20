@@ -23,6 +23,7 @@
 //
 //Konstanty
 #define SIDEBAR_WIDTH 250
+#define ACTIONBAR_HEIGHT 35
 //
 //
 //Třídy
@@ -52,6 +53,8 @@ class SideBar : public QFrame{ // SideBar
             QPushButton *btnASM = new QPushButton("Assembly Dev.", this);
             btnASM->setStyleSheet("color: #121212;");
 
+            QLabel *silverko = new QLabel(this);
+            silverko->setText("<span style='font-size: 15px; color: #abc0b2;'>by Silverko</span>");
 
             // Pořadí prvků
                 // Záleží na pořadí
@@ -60,6 +63,7 @@ class SideBar : public QFrame{ // SideBar
             layout->addWidget(btnCD);
             layout->addWidget(btnASM);
             layout->addStretch();
+            layout->addWidget(silverko);
 
 
             //Signály
@@ -78,6 +82,35 @@ class SideBar : public QFrame{ // SideBar
         virtual ~SideBar(){}
 };
 
+
+class ActionBar : public QFrame{ // bar pro action tlačítka
+    Q_OBJECT
+    public:
+        ActionBar(QWidget *parent = nullptr) : QFrame(parent){
+            this->setFixedHeight(ACTIONBAR_HEIGHT);
+            this->setStyleSheet("background-color: #2c2c2c;");
+            QHBoxLayout *layout = new QHBoxLayout(this);
+            layout->setContentsMargins(10, 5, 10, 5);
+            layout->addStretch();
+
+            // Prvky
+            QPushButton *btnBack = new QPushButton("⬅ Zpět", this);
+            QPushButton *btnRefresh = new QPushButton("🔄 Obnovit", this);
+
+            btnBack->setStyleSheet("color: white;");
+            btnRefresh->setStyleSheet("color: white;");
+
+            layout->addWidget(btnBack);
+            layout->addWidget(btnRefresh);
+
+            connect(btnBack, &QPushButton::clicked, this, &ActionBar::backClicked);
+            connect(btnRefresh, &QPushButton::clicked, this, &ActionBar::refreshClicked);
+        }
+
+        signals:
+            void backClicked();
+            void refreshClicked();
+};
 
 
 // Musí být poslední
@@ -119,9 +152,16 @@ class Window : public QWidget{ // Okno
             SideBar *menu = new SideBar(this);
             mainLayout->addWidget(menu);
 
+            // ActionBar
+            QVBoxLayout *rightLayout = new QVBoxLayout();
+            rightLayout->setContentsMargins(0, 0, 0, 0);
+            rightLayout->setSpacing(0);
+            ActionBar *topBar = new ActionBar(this);
+            rightLayout->addWidget(topBar);
+
             // ViewBar
             contentStack = new QStackedWidget(this);
-            mainLayout->addWidget(contentStack);
+            rightLayout->addWidget(contentStack);
 
             // Propojení souborů
             pageStart = createDisplayPage("start.html");
@@ -130,6 +170,7 @@ class Window : public QWidget{ // Okno
             pageASM = createDisplayPage("asm_dev.html");
 
             // Propojení tlačítek s přepínáním stránek
+            mainLayout->addLayout(rightLayout);
             contentStack->setCurrentIndex(0);
 
             contentStack->addWidget(pageStart);
@@ -142,6 +183,22 @@ class Window : public QWidget{ // Okno
             connect(menu, &SideBar::ASMclick, [=](){ contentStack->setCurrentIndex(3); });
 
             
+            //Signály
+            connect(topBar, &ActionBar::backClicked, [=](){
+                // Zjistíme, který QWebEngineView je zrovna otevřený
+                QWebEngineView *currentView = qobject_cast<QWebEngineView*>(contentStack->currentWidget());
+                if (currentView) currentView->back();
+            });
+
+            connect(topBar, &ActionBar::refreshClicked, [=](){
+                QWebEngineView *currentView = qobject_cast<QWebEngineView*>(contentStack->currentWidget());
+                if (currentView) {
+                 currentView->page()->triggerAction(QWebEnginePage::ReloadAndBypassCache);
+                }
+            });
+
+
+
             this->setLayout(mainLayout);
         };
 };
