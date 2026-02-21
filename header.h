@@ -29,32 +29,35 @@
 //Třídy
 class SideBar : public QFrame{ // SideBar
     Q_OBJECT
+    private:
+        QString btnStyle= "QPushButton{color:#121212;border:2px solid transparent;border-radius:8px;background-color: #abc0b2;;padding: 8px 0px 8px 0px} QPushButton:hover{border:2px solid #9fb2a6;background-color: #404943;color: #f7f7f7}";
+
     public:
         SideBar(QWidget *parent = nullptr) : QFrame(parent){
             this->setFixedWidth(SIDEBAR_WIDTH);
             this->setStyleSheet("background-color: #c8dccf;");
             QVBoxLayout *layout = new QVBoxLayout(this);
 
-
             // Sidebar prvky
-            //Logo
+                //Logo
             QLabel *logoText = new QLabel(this);
             logoText->setText(
               "<div style='text-align: center;'><br>"
               "<span style='font-size: 40px; font-weight: bold;color: #121212;'>SilverTool</span><br>"
               "<span style='font-size: 18px;margin-top: -5px;color: #121212;'>Prototyp</span>"
               "<br></div>");
-
-
-            QPushButton *btnCD = new QPushButton("C/C++ Dev.", this);
-            btnCD->setStyleSheet("color: #121212;");
-            QPushButton *btnWD = new QPushButton("Website Dev.", this);
-            btnWD->setStyleSheet("color: #121212;");
-            QPushButton *btnASM = new QPushButton("Assembly Dev.", this);
-            btnASM->setStyleSheet("color: #121212;");
-
+                // By Slverko
             QLabel *silverko = new QLabel(this);
             silverko->setText("<span style='font-size: 15px; color: #abc0b2;'>by Silverko</span>");
+                // Tlačítka
+            QPushButton *btnCD = new QPushButton("C/C++ Dev.", this);
+            QPushButton *btnWD = new QPushButton("Website Dev.", this);
+            QPushButton *btnASM = new QPushButton("Assembly Dev.", this);
+
+            //Button design
+            btnCD->setStyleSheet(btnStyle);
+            btnWD->setStyleSheet(btnStyle);
+            btnASM->setStyleSheet(btnStyle);
 
             // Pořadí prvků
                 // Záleží na pořadí
@@ -65,13 +68,11 @@ class SideBar : public QFrame{ // SideBar
             layout->addStretch();
             layout->addWidget(silverko);
 
-
             //Signály
             connect(btnWD, &QPushButton::clicked, this, &SideBar::WDclick);
             connect(btnCD, &QPushButton::clicked, this, &SideBar::CDclick);
             connect(btnASM, &QPushButton::clicked, this, &SideBar::ASMclick);
         };
-
 
     signals:
         void CDclick();
@@ -85,24 +86,30 @@ class SideBar : public QFrame{ // SideBar
 
 class ActionBar : public QFrame{ // bar pro action tlačítka
     Q_OBJECT
+    private:
+        QString btnStyle = "QPushButton{color: white;border: 2px solid transparent;padding: 5px 3px 5px 3px} QPushButton:hover{border: 2px solid #555555; border-radius:5px}";
+
     public:
         ActionBar(QWidget *parent = nullptr) : QFrame(parent){
             this->setFixedHeight(ACTIONBAR_HEIGHT);
             this->setStyleSheet("background-color: #2c2c2c;");
             QHBoxLayout *layout = new QHBoxLayout(this);
-            layout->setContentsMargins(10, 5, 10, 5);
+            layout->setContentsMargins(8, 4, 8, 4);
             layout->addStretch();
 
             // Prvky
             QPushButton *btnBack = new QPushButton("⬅ Zpět", this);
             QPushButton *btnRefresh = new QPushButton("🔄 Obnovit", this);
 
-            btnBack->setStyleSheet("color: white;");
-            btnRefresh->setStyleSheet("color: white;");
+            // Button Design
+            btnBack->setStyleSheet(btnStyle);
+            btnRefresh->setStyleSheet(btnStyle);
 
+            // Layout
             layout->addWidget(btnBack);
             layout->addWidget(btnRefresh);
 
+            // Sgnály
             connect(btnBack, &QPushButton::clicked, this, &ActionBar::backClicked);
             connect(btnRefresh, &QPushButton::clicked, this, &ActionBar::refreshClicked);
         }
@@ -153,7 +160,7 @@ class Window : public QWidget{ // Okno
             mainLayout->addWidget(menu);
 
             // ActionBar
-            QVBoxLayout *rightLayout = new QVBoxLayout();
+            QVBoxLayout *rightLayout = new QVBoxLayout(this);
             rightLayout->setContentsMargins(0, 0, 0, 0);
             rightLayout->setSpacing(0);
             ActionBar *topBar = new ActionBar(this);
@@ -185,25 +192,21 @@ class Window : public QWidget{ // Okno
             
             //Signály
             connect(topBar, &ActionBar::backClicked, [=](){
-                // Zjistíme, který QWebEngineView je zrovna otevřený
                 QWebEngineView *currentView = qobject_cast<QWebEngineView*>(contentStack->currentWidget());
                 if (currentView) currentView->back();
             });
 
             connect(topBar, &ActionBar::refreshClicked, [=](){
                 QWebEngineView *currentView = qobject_cast<QWebEngineView*>(contentStack->currentWidget());
-                if (currentView) {
-                 currentView->page()->triggerAction(QWebEnginePage::ReloadAndBypassCache);
+                if (currentView){
+                    currentView->page()->triggerAction(QWebEnginePage::ReloadAndBypassCache);
                 }
             });
-
 
 
             this->setLayout(mainLayout);
         };
 };
-
-
 
 
 #endif

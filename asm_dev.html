@@ -71,26 +71,26 @@
         <h2>Příkazy</h2>
         <h3>Základní:</h3>
         <ul>
-            <li><span>mov</span> - přesouvá proměnné do registru stejné velikosti</li>
-            <li><span>movzx</span> - přesouvá proměnné do většího registru než je proměnná sama a prázdné místo vyplní nulami</li>
-            <li><span>movsx</span> - téměř totožné jako movzx akorát že zachovává znaménko -+</li>
+            <li><code><span>mov</span></code> - přesouvá proměnné do registru stejné velikosti</li>
+            <li><code><span>movzx</span></code> - přesouvá proměnné do většího registru než je proměnná sama a prázdné místo vyplní nulami</li>
+            <li><code><span>movsx</span></code> - téměř totožné jako movzx akorát že zachovává znaménko -+</li>
             <br>
-            <li><span>int</span> - je to interupt neboli přerušení programu volá externě podle zadané hodnoty co se má stát a udělat</li>
-            <li><span>add</span> - je to přičtení k hodnotě</li>
-            <li><span>sub</span> - je to odečtení od hodnoty</li>
+            <li><code><span>int</span></code> - je to interupt neboli přerušení programu volá externě podle zadané hodnoty co se má stát a udělat</li>
+            <li><code><span>add</span></code> - je to přičtení k hodnotě</li>
+            <li><code><span>sub</span></code> - je to odečtení od hodnoty</li>
             <br>
-            <li><span>cmp</span> - dělá to samé co sub akorát že výsledek zahodí, používá se u podmíněných skoků <span>JE</span></li>
-            <li><span>dec</span> - od hodnoty odečte 1</li>
-            <li><span>neg</span> - změní znaménko</li>
+            <li><code><span>cmp</span></code> - dělá to samé co sub akorát že výsledek zahodí, používá se u podmíněných skoků <code><span>JE</span></code></li>
+            <li><code><span>dec</span></code> - od hodnoty odečte 1</li>
+            <li><code><span>neg</span></code> - změní znaménko</li>
             <br>
-            <li><span>and</span> - logický spučin, když na pozici oba vstupy mají 1 tak výsledek je 1, používá se k masce</li>
-            <li><span>or</span> - logický součet, kdzž alespoň jedna hodnota je jedna tak je výsledek 1 jinak 0</li>
-            <li><span>xor</span> - dá jedna pokud se logické proměnné liší jinak dá 0</li>
-            <li><span>not</span> - bitová inverze, otočí všechny bity</li>
-            <li><span>test</span> - dělá to co and ale výsledek zahodí stejně jako cmp</li>
+            <li><code><span>and</span></code> - logický spučin, když na pozici oba vstupy mají 1 tak výsledek je 1, používá se k masce</li>
+            <li><code><span>or</span></code> - logický součet, kdzž alespoň jedna hodnota je jedna tak je výsledek 1 jinak 0</li>
+            <li><code><span>xor</span></code> - dá jedna pokud se logické proměnné liší jinak dá 0</li>
+            <li><code><span>not</span></code> - bitová inverze, otočí všechny bity</li>
+            <li><code><span>test</span></code> - dělá to co and ale výsledek zahodí stejně jako cmp</li>
             <br>
-            <li><span>shl</span> - bitový posun doleva</li>
-            <li><span>shr</span> - bitový posun doprava</li>
+            <li><code><span>shl</span></code> - bitový posun doleva</li>
+            <li><code><span>shr</span></code> - bitový posun doprava</li>
         </ul>
         <h3>Podmíněné skoky:</h3>
         <table>
@@ -134,6 +134,46 @@
                 </tr>
             </tbody>
         </table>
+    </section>
+
+
+    <br><br><section>
+        <h2>Pravidla</h2>
+        <ul>
+            <li>Nemůžeš přesouvat data přímo z paměti do paměti</li>
+            <li>Nemůžeš měnit velikost dat (jako to dělá <code><span>MOVSX</span></code>) a rovnou je u toho cpát do paměti (musíš to roztáhnout v registru a pak to tam uložit)</li>
+            <li>Většina operací vyžaduje, aby alespoň jeden z operandů (cíl nebo zdroj) byl registr v procesoru</li>
+        </ul>
+        <h3>Načítání parametrů z funkce (pro první 4 parametry) a vrácení parametrů</h3>
+        <p>Parametry se načítají automaticky do konkrétního registru, specificky pro část, která odpovídá velikosti danému datovému typu.</p>
+        <h4>Načítací parametry:</h4>
+        <ul>
+            <li>1. parametr - RDI</li>
+            <li>2. parametr - RSI</li>
+            <li>3. parametr - RDX</li>
+            <li>4. parametr - RCX</li>
+            <li>5. + - R8 .atd</li>
+        </ul>
+        <h4>Vracející se hodnota</h4>
+        <ul>
+            <li>long, uint64_t, ukazatele - RAX</li>
+            <li>int, uint32_t - EAX</li>
+            <li>short, uint16_t - AX</li>
+            <li>char, uint8_t, bool - AL</li>
+        </ul>
+        <p>Primárně se hodnoty vrací přes reg RAX</p>
+    </section>
+
+
+    <br><section>
+        <h2>Posuny</h2>
+        <p>Pro posun v danné proměnné sp požívá <code><span>+ *</span></code> a to každý jiným způsobem.</p>
+        <ul>
+            <li><code><span>čísla</span></code> - čísla 1-9 vytváří posun o bajtech a 1 bajt má 8 bitů</li>
+            <li><code><span>+</span></code> - příčteš číslo k proměnné a tím posuneš o počet bajtů</li>
+            <li><code><span>*</span></code> - dává se za +číslo a to podstatě, když posuneš něco tak to musí být o velikost celé hodnoty kterou chceš posunout, takže pokud máš pole které má Unit16 a dáš +1 tak posuneš o 8 bitů a né o velikost celého pole takže musíž posunout o celou velikost pole a násobením *2 dorovnáš k dané velikosti a tudíž +1*2 posuneš o 16bitů do druhého prvku a u +2*2 posuneš o 32 bitů neboli do prvku třetího</li>
+        </ul>
+        <p><code><span style="color: rgb(168, 225, 251)">[promena + posun * hodnota_pro_dorovnani_velikosti]</span></code></p>
     </section>
 
 
