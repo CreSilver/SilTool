@@ -93,56 +93,35 @@
             <li><code><span>shr</span></code> - bitový posun doprava</li>
         </ul>
         <h3>Podmíněné skoky:</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>ASM Skok</th>
-                    <th>Význam anglicky</th>
-                    <th>Kdy skočí (C++ ekvivalent)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><code>JE</code> / <code>JZ</code></td>
-                    <td>Jump if Equal / Zero</td>
-                    <td><code>==</code> (Jsou si rovny)</td>
-                </tr>
-                <tr>
-                    <td><code>JNE</code> / <code>JNZ</code></td>
-                    <td>Jump if Not Equal / Not Zero&nbsp;&nbsp;&nbsp;</td>
-                    <td><code>!=</code> (Nejsou si rovny)</td>
-                </tr>
-                <tr>
-                    <td><code>JG</code></td>
-                    <td>Jump if Greater</td>
-                    <td><code>&gt;</code> (První je VĚTŠÍ než druhé)</td>
-                </tr>
-                <tr>
-                    <td><code>JGE&nbsp;&nbsp;&nbsp;</code></td>
-                    <td>Jump if Greater or Equal</td>
-                    <td><code>&gt;=</code> (Větší nebo rovno)</td>
-                </tr>
-                <tr>
-                    <td><code>JL</code></td>
-                    <td>Jump if Less</td>
-                    <td><code>&lt;</code> (První je MENŠÍ než druhé)</td>
-                </tr>
-                <tr>
-                    <td><code>JLE</code></td>
-                    <td>Jump if Less or Equal</td>
-                    <td><code>&lt;=</code> (Menší nebo rovno)</td>
-                </tr>
-            </tbody>
-        </table>
-    </section>
+        <p>Podmíněné skoky reagují na předchozí příkaz:</p>
+                <div class="code">
+            <span class="codename">&nbsp;module.asm; module.s</span><br><br>
+            <div>
+                <span>func_nejaka:</span>
+                <br><span>&nbsp;&nbsp;cmp rax, rsi</span>
+                <br><span>&nbsp;&nbsp;jge .hotovo</span>
+            </div>
+        </div>
+        <ul>
+            <li><span><code>JE / JZ</code></span> - Jump if Equal / Zero</li>
+            <li><span><code>JB/JNAE/JC</code></span> - menší než, není větší nebo rovno</li>
+            <li><span><code>JNB/JAE/JNC</code></span> - není menší, větší nebo rovno,</li>
+            <li><span><code>JBE/JNA</code></span> - menší nebo rovno, není větší</li>
+            <li><span><code>JNBE/JA</code></span> - není menší nebo rovno, je větší</li>
+            <li><span><code>JL/JNGE</code></span> - menší než, není větší nebo rovno</li>
+            <li><span><code>JNL/JGE</code></span> - není menší, větší nebo rovno</li>
+            <li><span><code>JLE/JNG</code></span> - menší nebo rovno, není větší</li>
+            <li><span><code>JNLE/JG</code></span> - není menší nebo rovno, je větší.</li>
+        </ul>
 
 
-    <br><br><section>
+    <br><section>
         <h2>Pravidla</h2>
         <ul>
             <li>Nemůžeš přesouvat data přímo z paměti do paměti</li>
             <li>Nemůžeš měnit velikost dat (jako to dělá <code><span>MOVSX</span></code>) a rovnou je u toho cpát do paměti (musíš to roztáhnout v registru a pak to tam uložit)</li>
             <li>Většina operací vyžaduje, aby alespoň jeden z operandů (cíl nebo zdroj) byl registr v procesoru</li>
+            <li>Na některé registry se nesahá - pokud se na ně sáhne tak se může vše posrat <b><span>BACHA!!!</span> -> <span>RSB</span> a <span>RBP</span> na ně se nesahá, jsou posvátné</b></li>
         </ul>
         <h3>Načítání parametrů z funkce (pro první 4 parametry) a vrácení parametrů</h3>
         <p>Parametry se načítají automaticky do konkrétního registru, specificky pro část, která odpovídá velikosti danému datovému typu.</p>
@@ -171,7 +150,7 @@
         <ul>
             <li><code><span>čísla</span></code> - čísla 1-9 vytváří posun o bajtech a 1 bajt má 8 bitů</li>
             <li><code><span>+</span></code> - příčteš číslo k proměnné a tím posuneš o počet bajtů</li>
-            <li><code><span>*</span></code> - dává se za +číslo a to podstatě, když posuneš něco tak to musí být o velikost celé hodnoty kterou chceš posunout, takže pokud máš pole které má Unit16 a dáš +1 tak posuneš o 8 bitů a né o velikost celého pole takže musíž posunout o celou velikost pole a násobením *2 dorovnáš k dané velikosti a tudíž +1*2 posuneš o 16bitů do druhého prvku a u +2*2 posuneš o 32 bitů neboli do prvku třetího</li>
+            <li><code><span>*</span></code> - dává se za +číslo a to podstatě, když posuneš něco tak to musí být o velikost celé hodnoty kterou chceš posunout, takže pokud máš pole které má Unit16 a dáš +1 tak posuneš o 8 bitů a né o velikost celého pole takže musíž posunout o celou velikost pole a násobením *2 dorovnáš k dané velikosti a tudíž +1*2 posuneš o 16bitů do druhého prvku a u +2*2 posuneš o 32 bitů neboli do prvku třetího. můž s násbyt dle 2 na n -> 1, 2, 4, 8</li>
         </ul>
         <p><code><span style="color: rgb(168, 225, 251)">[promena + posun * hodnota_pro_dorovnani_velikosti]</span></code></p>
     </section>

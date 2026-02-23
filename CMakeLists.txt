@@ -22,7 +22,7 @@ target_link_libraries(sil_tool PRIVATE Qt6::Widgets Qt6::WebEngineWidgets)
 file(COPY 
     start.html 
     c_dev.html 
-    web_dev.html 
+    makefile.html
     asm_dev.html 
     style.css
     DESTINATION ${CMAKE_CURRENT_BINARY_DIR}

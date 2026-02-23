@@ -51,25 +51,25 @@ class SideBar : public QFrame{ // SideBar
             silverko->setText("<span style='font-size: 15px; color: #abc0b2;'>by Silverko</span>");
                 // Tlačítka
             QPushButton *btnCD = new QPushButton("C/C++ Dev.", this);
-            QPushButton *btnWD = new QPushButton("Website Dev.", this);
+            QPushButton *btnMF = new QPushButton("Makefile doc.", this);
             QPushButton *btnASM = new QPushButton("Assembly Dev.", this);
 
             //Button design
             btnCD->setStyleSheet(btnStyle);
-            btnWD->setStyleSheet(btnStyle);
+            btnMF->setStyleSheet(btnStyle);
             btnASM->setStyleSheet(btnStyle);
 
             // Pořadí prvků
                 // Záleží na pořadí
             layout->addWidget(logoText);
-            layout->addWidget(btnWD);
+            layout->addWidget(btnMF);
             layout->addWidget(btnCD);
             layout->addWidget(btnASM);
             layout->addStretch();
             layout->addWidget(silverko);
 
             //Signály
-            connect(btnWD, &QPushButton::clicked, this, &SideBar::WDclick);
+            connect(btnMF, &QPushButton::clicked, this, &SideBar::WDclick);
             connect(btnCD, &QPushButton::clicked, this, &SideBar::CDclick);
             connect(btnASM, &QPushButton::clicked, this, &SideBar::ASMclick);
         };
@@ -172,7 +172,7 @@ class Window : public QWidget{ // Okno
 
             // Propojení souborů
             pageStart = createDisplayPage("start.html");
-            pageWeb = createDisplayPage("web_dev.html");
+            pageWeb = createDisplayPage("makefile.html");
             pageCE = createDisplayPage("c_dev.html");
             pageASM = createDisplayPage("asm_dev.html");
 

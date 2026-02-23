@@ -1,0 +1,64 @@
+<html>
+    <head>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+    
+
+    <section>
+        <br><h1>Makefile dokumentation</h1><br>
+    </section>
+
+
+    <section>
+        <h2>Tvorba</h2>
+        <p>Makefile je soubor bez přípony, který slouží k ulehčení kompilace spousty souborů do funálního produktu. Může kompilovat soubory jednoho i více jazyků. Název souboru se vždz nazívá <span style="color: rgb(207, 168, 251);" >Makefile</span>. Na linuxu se zpouští příkezem v terminálu <span style="color: rgb(207, 168, 251);"><code>make</code></span>. Příkaz se dá v souboru i lehce upravit a dá se mu přidat i nějaké další dodatky které se dodají za make a tak jsme schopní dát do jednoho souboru více typů kompilace.</p>
+        <p>Tady je postup pro makefile pro C + ASM</p>
+        <h3>Krok 1 - deklarace:</h3>
+        <ul>
+            <li><span><code>CC = gcc</code></span> - pro gcc / C/C++</li>
+            <li><span><code>AS = nasm</code></span> - pro nasm / ASM</li>
+        </ul>
+        <h3>Krok 2 - nastavení flafů:</h3>
+        <ul>
+            <li><span><code>CFLAGS = -Wall -Wextra -no-pie -g</code></span> - pro C</li>
+            <li><span><code>ASFLAGS = -f elf64 -g</code></span> - pro ASM</li>
+        </ul>
+        <h3>Krok 3 - deklarace názvu fin. souboru a mezisouborů pomocí kterých se provádí kompilace. Soubory typu .o:</h3>
+        <ul>
+            <li><span><code>TARGET = program</code></span> - finální soubor</li>
+            <li><span><code>OBJS = main.o module.o</code> - objekty přes které se to kompiluje</span></li>
+        </ul>
+        <h3>Krok 4 - způsob jak (maska):</h3>
+        <div class="code">
+            <span class="codename">&nbsp;Makefile</span><br><br>
+            <div>
+                <span>$(TARGET): $(OBJS)</span>
+                <br>&nbsp;&nbsp;<span>$(CC) $(CFLAGS) -o $(TARGET) $(OBJS)</span>
+            </div>
+        </div><br>
+        <h3>Krok 5 - jaké soubory se na co převádí (konkrétně) pomocí parametrů: </h3>
+        <div class="code">
+            <span class="codename">&nbsp;Makefile</span><br><br>
+            <div>
+                <span>main.o: main.c</span>
+                <br>&nbsp;&nbsp;<span>$(CC) $(CFLAGS) -c main.c -o main.o</span>
+                <br><span>module.o: module.s</span>
+                <br>&nbsp;&nbsp;<span>$(AS) $(ASFLAGS) module.s -o module.o</span>
+            </div>
+        </div><br>
+        <h3>Krok 6 - úklid:</h3>
+        <div class="code">
+            <span class="codename">&nbsp;Makefile</span><br><br>
+            <div>
+                <span>clean:</span>
+                <br>&nbsp;&nbsp;<span>rm -f $(OBJS) $(TARGET)</span>
+            </div>
+        </div>
+    </section><br>
+
+
+</body>
+</html>
