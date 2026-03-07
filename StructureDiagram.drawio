@@ -1,6 +1,6 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.5.2 Chrome/142.0.7444.265 Electron/39.6.1 Safari/537.36" version="29.5.2">
   <diagram name="Stránka-1" id="MIi1Dzs0EOzJYU5LHXvB">
-    <mxGraphModel dx="1772" dy="1682" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="3300" pageHeight="2339" background="none" math="0" shadow="0">
+    <mxGraphModel dx="1920" dy="1788" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="3300" pageHeight="2339" background="none" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -66,15 +66,19 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="zLNO_T9H4-mNTK4uByez-25" edge="1" parent="1" source="zLNO_T9H4-mNTK4uByez-8" style="endArrow=classic;html=1;rounded=0;curved=0;dashed=1;dashPattern=8 8;labelBackgroundColor=none;fontColor=default;" target="zLNO_T9H4-mNTK4uByez-18" value="">
+        <mxCell id="zLNO_T9H4-mNTK4uByez-25" edge="1" parent="1" source="hXyVZ4JLI0X86eD48Wck-40" style="endArrow=classic;html=1;rounded=0;curved=0;dashed=1;dashPattern=8 8;labelBackgroundColor=none;fontColor=default;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="zLNO_T9H4-mNTK4uByez-18" value="">
           <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1038" y="313" />
+              <mxPoint x="633" y="313" />
+            </Array>
             <mxPoint x="631" y="262" as="sourcePoint" />
             <mxPoint x="831" y="564" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="zLNO_T9H4-mNTK4uByez-26" connectable="0" parent="zLNO_T9H4-mNTK4uByez-25" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=none;" value="Přepíná mezi listy" vertex="1">
           <mxGeometry relative="1" x="-0.079" y="2" as="geometry">
-            <mxPoint as="offset" />
+            <mxPoint x="1" y="-8" as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="zLNO_T9H4-mNTK4uByez-27" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;labelBackgroundColor=none;" value="Zobrazuje HTML dokumenty pomocí chromium jádra" vertex="1">
@@ -158,7 +162,7 @@
         <mxCell id="hXyVZ4JLI0X86eD48Wck-18" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Welcome page" vertex="1">
           <mxGeometry height="60" width="120" x="898" y="597" as="geometry" />
         </mxCell>
-        <mxCell id="hXyVZ4JLI0X86eD48Wck-20" edge="1" parent="1" source="zLNO_T9H4-mNTK4uByez-18" style="endArrow=classic;html=1;rounded=0;" target="hXyVZ4JLI0X86eD48Wck-18" value="">
+        <mxCell id="hXyVZ4JLI0X86eD48Wck-20" edge="1" parent="1" source="zLNO_T9H4-mNTK4uByez-18" style="endArrow=classic;html=1;rounded=0;startArrow=classicThin;startFill=0;" target="hXyVZ4JLI0X86eD48Wck-18" value="">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="731" y="634" as="sourcePoint" />
             <mxPoint x="831" y="634" as="targetPoint" />

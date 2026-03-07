@@ -44,7 +44,7 @@
             </div>
         </div>
         <h3>Funkce:</h3>
-        <p>Funkce mají stejnou deklaraci a volání jak klasické ASM funkce. Declarují se v section <span>.text</span> pomocí <span>global</span>, která ukazuje, že dnná funkce je globální.</p>
+        <p>Funkce mají stejnou deklaraci a volání jak klasické ASM funkce. Declarují se v section <span>.text</span> pomocí <span>global</span>, která ukazuje, že daná funkce je globální.</p>
         <div class="code">
             <span class="codename">&nbsp;module.asm; module.s</span><br><br>
             <div>
@@ -76,18 +76,31 @@
             <li><code><span>movsx</span></code> - téměř totožné jako movzx akorát že zachovává znaménko -+</li>
             <br>
             <li><code><span>int</span></code> - je to interupt neboli přerušení programu volá externě podle zadané hodnoty co se má stát a udělat</li>
+            <br>
+            <li><code><span>cmp</span></code> - dělá to samé co sub akorát že výsledek zahodí, používá se u podmíněných skoků</li>
             <li><code><span>add</span></code> - je to přičtení k hodnotě</li>
             <li><code><span>sub</span></code> - je to odečtení od hodnoty</li>
-            <br>
-            <li><code><span>cmp</span></code> - dělá to samé co sub akorát že výsledek zahodí, používá se u podmíněných skoků <code><span>JE</span></code></li>
+            <li><code><span>imul [Co se násobí], [Kde se to uloží], [čím se to násobí]</span></code> - násobení</li>
+            <li>dělení:<br><div class="code">
+                <span class="codename">&nbsp;module.asm; module.s</span><br><br>
+                <div>
+                    <span style="color: rgb(207, 168, 251);">mov RAX, 25</span>
+                    <br><span style="color: rgb(207, 168, 251);">mov RBX, 5</span>
+                    <br><span style="color: rgb(207, 168, 251);">cdq ; dává se pouze pokud se nepoužívají 64bit proměnné</span>
+                    <br><span style="color: rgb(207, 168, 251);">idiv RBX</span>
+                    <br><span style="color: rgb(207, 168, 251);">; RAX = 5, celočíselný výsledek</span>
+                    <br><span style="color: rgb(207, 168, 251);">; RDX = 0, zbytek po dělení</span>
+                </div>
+            </div></li>
             <li><code><span>dec</span></code> - od hodnoty odečte 1</li>
-            <li><code><span>neg</span></code> - změní znaménko</li>
+            <li><code><span>inc</span></code> - k hodnotě přičte 1</li>
             <br>
+            <li><code><span>neg</span></code> - změní znaménko</li>
             <li><code><span>and</span></code> - logický spučin, když na pozici oba vstupy mají 1 tak výsledek je 1, používá se k masce</li>
             <li><code><span>or</span></code> - logický součet, kdzž alespoň jedna hodnota je jedna tak je výsledek 1 jinak 0</li>
             <li><code><span>xor</span></code> - dá jedna pokud se logické proměnné liší jinak dá 0</li>
             <li><code><span>not</span></code> - bitová inverze, otočí všechny bity</li>
-            <li><code><span>test</span></code> - dělá to co and ale výsledek zahodí stejně jako cmp</li>
+            <li><code><span>test</span></code> - dělá to co and ale výsledek zahodí stejně jako cmp, používá se u podmíněných skoků</li>
             <br>
             <li><code><span>shl</span></code> - bitový posun doleva</li>
             <li><code><span>shr</span></code> - bitový posun doprava</li>
@@ -103,15 +116,10 @@
             </div>
         </div>
         <ul>
-            <li><span><code>JE / JZ</code></span> - Jump if Equal / Zero</li>
-            <li><span><code>JB/JNAE/JC</code></span> - menší než, není větší nebo rovno</li>
-            <li><span><code>JNB/JAE/JNC</code></span> - není menší, větší nebo rovno,</li>
-            <li><span><code>JBE/JNA</code></span> - menší nebo rovno, není větší</li>
-            <li><span><code>JNBE/JA</code></span> - není menší nebo rovno, je větší</li>
-            <li><span><code>JL/JNGE</code></span> - menší než, není větší nebo rovno</li>
-            <li><span><code>JNL/JGE</code></span> - není menší, větší nebo rovno</li>
-            <li><span><code>JLE/JNG</code></span> - menší nebo rovno, není větší</li>
-            <li><span><code>JNLE/JG</code></span> - není menší nebo rovno, je větší.</li>
+            <li><span><code>JMP</code></span> - skok bez podmínky</li>
+            <li><span><code>JE;JZ;JNE</code></span> - = ; = 0 ; !=</li>
+            <li><span><code>JB;JBE / JL;JLE</code></span> - &lt; ; &lt;= ; bez znaménka / se znaménkem</li>
+            <li><span><code>JA;JAC / JG;JGE</code></span> - &gt; ; &gt;= ; bez znaménka / se znaménkem</li>
         </ul>
 
 
@@ -122,8 +130,14 @@
             <li>Nemůžeš měnit velikost dat (jako to dělá <code><span>MOVSX</span></code>) a rovnou je u toho cpát do paměti (musíš to roztáhnout v registru a pak to tam uložit)</li>
             <li>Většina operací vyžaduje, aby alespoň jeden z operandů (cíl nebo zdroj) byl registr v procesoru</li>
             <li>Na některé registry se nesahá - pokud se na ně sáhne tak se může vše posrat <b><span>BACHA!!!</span> -> <span>RSB</span> a <span>RBP</span> na ně se nesahá, jsou posvátné</b></li>
+            <li><code><span>RBX</span></code> je kolikrát využíván jazykem C a nemusí se hodit ho využívat</li>
+            <li>Při zápisu registrů jako adresu <code><span>[rax + rdx*2]</span></code>, musí být registry jsou zapsány v 64 bit velikostí (pokud používáme 64 bit)</li>
+            <li>U příkazů <code><span>SHL</span></code>, <code><span>SHR</span></code> pokud se posun chce uvádět přes registr místo čísla tak musí být uveden v 8 bitové variantě registru, př. <code><span>shr eax, cl</span></code></li>
+            <li>V znak '0' má číselnou hodnotu 48</li>
+            <li>Bacha na záporná čísla! Občas dělají bordel a kolikrát je je potřeba negovat</li>
+            <li>Pokud je 32 bit hodnota v 64 bit registru, tak ve zbylých bitech se nachází nechtěná hodnota, která pokud se použije proměnná jako 64 bit, tak výsledek bude mít špatnoý výsledek.</li>
         </ul>
-        <h3>Načítání parametrů z funkce (pro první 4 parametry) a vrácení parametrů</h3>
+        <h3>Načítání parametrů z funkce a vrácení parametrů</h3>
         <p>Parametry se načítají automaticky do konkrétního registru, specificky pro část, která odpovídá velikosti danému datovému typu.</p>
         <h4>Načítací parametry:</h4>
         <ul>
@@ -134,18 +148,8 @@
             <li>5. + - R8 .atd</li>
         </ul>
         <h4>Vracející se hodnota</h4>
-        <ul>
-            <li>long, uint64_t, ukazatele - RAX</li>
-            <li>int, uint32_t - EAX</li>
-            <li>short, uint16_t - AX</li>
-            <li>char, uint8_t, bool - AL</li>
-        </ul>
-        <p>Primárně se hodnoty vrací přes reg RAX</p>
-    </section>
-
-
-    <br><section>
-        <h2>Posuny</h2>
+        <p>Hodnoty se vrací primárně přes reg. RAX</p>
+        <h3>Posuny</h3>
         <p>Pro posun v danné proměnné sp požívá <code><span>+ *</span></code> a to každý jiným způsobem.</p>
         <ul>
             <li><code><span>čísla</span></code> - čísla 1-9 vytváří posun o bajtech a 1 bajt má 8 bitů</li>

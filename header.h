@@ -51,25 +51,25 @@ class SideBar : public QFrame{ // SideBar
             silverko->setText("<span style='font-size: 15px; color: #abc0b2;'>by Silverko</span>");
                 // Tlačítka
             QPushButton *btnCD = new QPushButton("C/C++ Dev.", this);
-            QPushButton *btnMF = new QPushButton("Makefile doc.", this);
+            QPushButton *btnCO = new QPushButton("Compilation doc.", this);
             QPushButton *btnASM = new QPushButton("Assembly Dev.", this);
 
             //Button design
             btnCD->setStyleSheet(btnStyle);
-            btnMF->setStyleSheet(btnStyle);
+            btnCO->setStyleSheet(btnStyle);
             btnASM->setStyleSheet(btnStyle);
 
             // Pořadí prvků
                 // Záleží na pořadí
             layout->addWidget(logoText);
-            layout->addWidget(btnMF);
+            layout->addWidget(btnCO);
             layout->addWidget(btnCD);
             layout->addWidget(btnASM);
             layout->addStretch();
             layout->addWidget(silverko);
 
             //Signály
-            connect(btnMF, &QPushButton::clicked, this, &SideBar::WDclick);
+            connect(btnCO, &QPushButton::clicked, this, &SideBar::WDclick);
             connect(btnCD, &QPushButton::clicked, this, &SideBar::CDclick);
             connect(btnASM, &QPushButton::clicked, this, &SideBar::ASMclick);
         };
