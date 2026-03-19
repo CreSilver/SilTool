@@ -22,6 +22,8 @@
 //
 //
 //Konstanty
+const QString APP_VERSION = "0dev10";
+
 #define SIDEBAR_WIDTH 250
 #define ACTIONBAR_HEIGHT 35
 //
@@ -30,12 +32,12 @@
 class SideBar : public QFrame{ // SideBar
     Q_OBJECT
     private:
-        QString btnStyle= "QPushButton{color:#121212;border:2px solid transparent;border-radius:8px;background-color: #abc0b2;;padding: 8px 0px 8px 0px} QPushButton:hover{border:2px solid #9fb2a6;background-color: #404943;color: #f7f7f7}";
+        QString btnStyle= "QPushButton{color:#121212;border:2px solid transparent;border-radius:8px;background-color: #cacaca;padding: 8px 0px 8px 0px} QPushButton:hover{border:2px solid #a4a4a4;background-color: #121212;color: #e0e0e0;}";
 
     public:
         SideBar(QWidget *parent = nullptr) : QFrame(parent){
             this->setFixedWidth(SIDEBAR_WIDTH);
-            this->setStyleSheet("background-color: #c8dccf;");
+            this->setStyleSheet("background-color: #e0e0e0;");
             QVBoxLayout *layout = new QVBoxLayout(this);
 
             // Sidebar prvky
@@ -47,8 +49,13 @@ class SideBar : public QFrame{ // SideBar
               "<span style='font-size: 18px;margin-top: -5px;color: #121212;'>Prototyp</span>"
               "<br></div>");
                 // By Slverko
-            QLabel *silverko = new QLabel(this);
-            silverko->setText("<span style='font-size: 15px; color: #abc0b2;'>by Silverko</span>");
+                // Version
+            QLabel *end_sidebar = new QLabel(this);
+            QString end_sidebar_text = QString(
+                "<br><span style='font-size: 15px; color: #a4a4a4;'>by Silverko</span><br><span style='font-size: 10px; color: #a4a4a4;'>Version: " + 
+                APP_VERSION + "</span>"
+            );
+            end_sidebar->setText(end_sidebar_text);
                 // Tlačítka
             QPushButton *btnCD = new QPushButton("C/C++ Dev.", this);
             QPushButton *btnCO = new QPushButton("Compilation doc.", this);
@@ -66,7 +73,7 @@ class SideBar : public QFrame{ // SideBar
             layout->addWidget(btnCD);
             layout->addWidget(btnASM);
             layout->addStretch();
-            layout->addWidget(silverko);
+            layout->addWidget(end_sidebar);
 
             //Signály
             connect(btnCO, &QPushButton::clicked, this, &SideBar::WDclick);
@@ -87,15 +94,13 @@ class SideBar : public QFrame{ // SideBar
 class ActionBar : public QFrame{ // bar pro action tlačítka
     Q_OBJECT
     private:
-        QString btnStyle = "QPushButton{color: white;border: 2px solid transparent;padding: 5px 3px 5px 3px} QPushButton:hover{border: 2px solid #555555; border-radius:5px}";
+        QString btnStyle = "QPushButton{color: #121212;border: 2px solid transparent;padding: 5px 3px 5px 3px} QPushButton:hover{border: 2px solid #555555; border-radius:5px}";
 
     public:
         ActionBar(QWidget *parent = nullptr) : QFrame(parent){
             this->setFixedHeight(ACTIONBAR_HEIGHT);
-            this->setStyleSheet("background-color: #2c2c2c;");
+            this->setStyleSheet("background-color: #d0d0d0;");
             QHBoxLayout *layout = new QHBoxLayout(this);
-            layout->setContentsMargins(8, 4, 8, 4);
-            layout->addStretch();
 
             // Prvky
             QPushButton *btnBack = new QPushButton("⬅ Zpět", this);
@@ -106,6 +111,8 @@ class ActionBar : public QFrame{ // bar pro action tlačítka
             btnRefresh->setStyleSheet(btnStyle);
 
             // Layout
+            layout->setContentsMargins(8, 4, 8, 4);
+            layout->addStretch();
             layout->addWidget(btnBack);
             layout->addWidget(btnRefresh);
 
@@ -146,7 +153,6 @@ class Window : public QWidget{ // Okno
             this->setWindowTitle("SilverTool - Prototyp");           // Název aplikace
             this->resize(1180, 720);
             this->setStyleSheet(
-                "SideBar {border-right: 1px solid #181a1f;}"
                 "QLabel {font-weight: bold; margin-bottom: 20px;}"
             );
 
