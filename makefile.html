@@ -8,55 +8,221 @@
     
 
     <section>
-        <br><h1>Makefile dokumentation</h1><br>
+
+        <h1>Makefile dokumentace</h1>
+
     </section>
 
 
     <section>
-        <h2>Tvorba</h2>
-        <p>Makefile je soubor bez přípony, který slouží k ulehčení kompilace spousty souborů do funálního produktu. Může kompilovat soubory jednoho i více jazyků. Název souboru se vždz nazívá <span style="color: rgb(207, 168, 251);" >Makefile</span>. Na linuxu se zpouští příkezem v terminálu <span style="color: rgb(207, 168, 251);"><code>make</code></span>. Příkaz se dá v souboru i lehce upravit a dá se mu přidat i nějaké další dodatky které se dodají za make a tak jsme schopní dát do jednoho souboru více typů kompilace.</p>
-        <p>Tady je postup pro makefile pro C + ASM</p>
-        <h3>Krok 1 - deklarace:</h3>
+        <h2>Teorie: Linkování a typová bezpečnost</h2>
+        <p>Při přidání C++ už Makefile není jen o kompilaci, ale o správě vazeb mezi symboly. C++ kompilátor mění názvy funkcí (Name Mangling), aby podpořil overloading. Pokud voláte funkci z ASM nebo C, musíte použít <code>extern "C"</code>, jinak linker (LD) nahlásí <i>undefined reference</i>. Kolikrát u kompilace více než jednoho jazyka se používá <code>LD := [ten co má nejvíce v sobě]</code>. Pro C a ASM se použije gcc a pro C++ a ASM se použije g++.</p>
+        <p>Makefile funguje na základní struktuře a tudíž první se nacházý delarace.</p>
+
+        <br><h3>Krok 1 - Deklarace nástrojů:</h3>
+        <p>Pro projekty obsahující C++ je **nutné** použít <code>g++</code> jako finální linker, protože automaticky přibaluje C++ runtime.</p>
         <ul>
-            <li><span><code>CC = gcc</code></span> - pro gcc / C/C++</li>
-            <li><span><code>AS = nasm</code></span> - pro nasm / ASM</li>
+            <li><span><code>CC := gcc</code></span> - Kompilátor pro C.</li>
+            <li><span><code>CXX := g++</code></span> - Kompilátor pro C++.</li>
+            <li><span><code>AS := nasm</code></span> - Assembler.</li>
         </ul>
-        <h3>Krok 2 - nastavení flafů:</h3>
+
+        <br><h3>Krok 2 - Nastavení flagů (Specifika C++):</h3>
+        <p>Nastavení flagů se dává podstatě jako kdyby byli konpilovány soubory ručně, vždy musí být přidány tzv. flagy které určují způsob kompilace.</p>
         <ul>
-            <li><span><code>CFLAGS = -Wall -Wextra -no-pie -g</code></span> - pro C</li>
-            <li><span><code>ASFLAGS = -f elf64 -g</code></span> - pro ASM</li>
+            <li><span><code>CFLAGS := -Wall -Wextra -g</code></span> - Standardní flagy pro C.</li>
+            <li><span><code>CXXFLAGS := -Wall -Wextra -std=c++20 -g</code></span> - <code>-std=c++20</code> definuje normu jazyka, což je zásadní pro konzistenci syntaxe.</li>
+            <li><span><code>ASFLAGS := -f elf64 -g</code></span> - Ladicí informace i pro assembler.</li>
         </ul>
-        <h3>Krok 3 - deklarace názvu fin. souboru a mezisouborů pomocí kterých se provádí kompilace. Soubory typu .o:</h3>
+
+        <br><h3>Krok 3 - Správa souborů a cílů:</h3>
+        <p>Využíváme substituci, abychom automaticky generovali seznam všech objektových souborů z různých přípon.</p>
         <ul>
-            <li><span><code>TARGET = program</code></span> - finální soubor</li>
-            <li><span><code>OBJS = main.o module.o</code> - objekty přes které se to kompiluje</span></li>
+            <li><span><code>TARGET := program</code></span></li>
+            <li><span><code>SRCS_C   := $(wildcard *.c)</code></span></li>
+            <li><span><code>SRCS_CXX := $(wildcard *.cpp)</code></span></li>        <p></p>
+            <li><span><code>SRCS_ASM := $(wildcard *.s)</code></span></li>
+            <li><span><code>OBJS := $(SRCS_C:.c=.o) $(SRCS_CXX:.cpp=.o) $(SRCS_ASM:.s=.o)</code></span></li>
         </ul>
-        <h3>Krok 4 - způsob jak (maska):</h3>
+
+        <br><h3>Krok 4 - Linkování:</h3>
+        <p>Linkování (Linking) je závěrečná fáze, kde linker vezme izolované objektové soubory (<code>.o</code>) a vyřeší jejich vzájemné reference. Tento proces transformuje kód z "rozsypaného stavu" do finálního, spustitelného nebo znovupoužitelného produktu. Aby byl uživatel schopen vytvořit Makefile pro cokoliv, musí znát tyto čtyři fundamentální způsoby spojování.</p>
+
         <div class="code">
             <span class="codename">&nbsp;Makefile</span><br><br>
             <div>
-                <span>$(TARGET): $(OBJS)</span>
-                <br>&nbsp;&nbsp;<span>$(CC) $(CFLAGS) -o $(TARGET) $(OBJS)</span>
-            </div>
-        </div><br>
-        <h3>Krok 5 - jaké soubory se na co převádí (konkrétně) pomocí parametrů: </h3>
-        <div class="code">
-            <span class="codename">&nbsp;Makefile</span><br><br>
-            <div>
-                <span>main.o: main.c</span>
-                <br>&nbsp;&nbsp;<span>$(CC) $(CFLAGS) -c main.c -o main.o</span>
-                <br><span>module.o: module.s</span>
-                <br>&nbsp;&nbsp;<span>$(AS) $(ASFLAGS) module.s -o module.o</span>
-            </div>
-        </div><br>
-        <h3>Krok 6 - úklid:</h3>
-        <div class="code">
-            <span class="codename">&nbsp;Makefile</span><br><br>
-            <div>
-                <span>clean:</span>
-                <br>&nbsp;&nbsp;<span>rm -f $(OBJS) $(TARGET)</span>
+                <span>$(TARGET): $(OBJS)</span><br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;$(CC) $(CFLAGS) -o $(TARGET) $(OBJS)</span>
             </div>
         </div>
+
+        <br><table>
+            <thead>
+                <tr>
+                    <th>Prvek</th>
+                    <th>Význam v tomto zápisu</th>
+                    <th>Ekvivalent (Metoda A)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><b>$(TARGET)</b></td>
+                    <td>Název binárky (např. <code>program</code>).</td>
+                    <td><code>$@</code></td>
+                </tr>
+                <tr>
+                    <td><b>$(OBJS)</b></td>
+                    <td>Seznam všech <code>.o</code> souborů.</td>
+                    <td><code>$^</code></td>
+                </tr>
+                <tr>
+                    <td><b>$(CC)</b></td>
+                    <td>Kompilátor použitý i jako linker.</td>
+                    <td><code>$(LD)</code></td>
+                </tr>
+                <tr>
+                    <td><b>$(CFLAGS)</b></td>
+                    <td>Předání parametrů (debug, optimalizace).</td>
+                    <td><code>$(LDFLAGS)</code></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>Způsob A: Standardní binární program (Executable)</h3>
+        <p>Nejčastější způsob pro tvorbu aplikací. Linker spojí objekty a přidá k nim kód pro spuštění operačním systémem (vstupní bod <code>_start</code> nebo <code>main</code>).</p>
+        <div class="code">
+            <span class="codename">&nbsp;Makefile</span><br><br>
+            <div>
+                <span>$(TARGET): $(OBJS)</span><br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;$(LD) $(LDFLAGS) -o $@ $^ $(LIBS)</span>
+            </div>
+        </div>
+        <p><b>Kritické proměnné:</b></p>
+        <ul>
+            <li><b><span>$@</span> (Target):</b> Název výsledného programu (vlevo od dvojtečky).</li>
+            <li><b><span>$^</span> (Dependencies):</b> Seznam <b>všech</b> objektů (vpravo od dvojtečky). Pokud použijete <code>$&lt;</code>, linker uvidí jen první soubor a nahlásí chybu <i>undefined reference</i> pro zbytek.</li>
+        </ul>
+
+        <h4>Způsob B: Polyglotní/Hybridní linkování (C + C++ + ASM)</h3>
+        <p>Univerzální metoda pro projekty míchající různé jazyky. Zde je volba linkeru kritická.</p>
+        <div class="code">
+            <span class="codename">&nbsp;Makefile</span><br><br>
+            <div>
+                <span>LD := g++  # Pro C++ standardní knihovny</span><br>
+                <span>$(TARGET): $(OBJS_C) $(OBJS_CPP) $(OBJS_ASM)</span><br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;$(LD) $(LDFLAGS) -o $@ $^</span>
+            </div>
+        </div>
+        <p><b>Chyták:</b> I když máte většinu kódu v C, pokud obsahuje byť jeden C++ modul, musíte linkovat přes <code>g++</code> (nebo <code>clang++</code>). <code>gcc</code> neumí samo přibalit <code>libstdc++</code>, což vede k selhání linkování.</p>
+
+        <h4>Způsob C: Statická knihovna (Static Library - .a)</h3>
+        <p>Pokud netvoříte program, ale balíček pro jiné vývojáře. V tomto případě linker <code>ld</code> nahrazujeme nástrojem <code>ar</code> (archiver).</p>
+        <div class="code">
+            <span class="codename">&nbsp;Makefile</span><br><br>
+            <div>
+                <span>$(LIB_NAME).a: $(OBJS)</span><br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;ar rcs $@ $^</span>
+            </div>
+        </div>
+        <p><b>Parametry <code>rcs</code>:</b> <code>r</code> (replace) nahradí staré objekty, <code>c</code> (create) vytvoří archiv, <code>s</code> (index) vytvoří symbolický index pro rychlejší linkování v budoucnu.</p>
+
+        <h4>Způsob D: Sdílená/Dynamická knihovna (Shared Object - .so)</h3>
+        <p>Pro knihovny, které se do paměti načítají až při spuštění programu. Vyžaduje speciální instrukce pro linker.</p>
+        <div class="code">
+            <span class="codename">&nbsp;Makefile</span><br><br>
+            <div>
+                <span>$(LIB_NAME).so: $(OBJS)</span><br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;$(LD) -shared -fPIC -o $@ $^</span>
+            </div>
+        </div>
+        <p><b>Pozor:</b> Všechny objekty v <code>$(OBJS)</code> musí být v Kroku 5 zkompilovány s flagem <code>-fPIC</code> (Position Independent Code), jinak linkování v Kroku 4 selže.</p>
+           
+        <h4>Způsob E: Kombinovaný přístup (Hybrid)</h2>
+        <p>Pro maximální univerzálnost a čitelnost se často dokumentuje i tento způsob, který kombinuje explicitní cíl s automatickými vstupy:</p>
+        <div class="code">
+            <span class="codename">&nbsp;Makefile</span><br><br>
+            <div>
+                <span>$(TARGET): (OBJS)<br>
+                (CC) -o $@ $^ (CFLAGS) $(LDFLAGS)
+                $@\</span><br> # nahrazuje \<span\>(TARGET)</span>, čímž se eliminuje riziko překlepu při přejmenování binárky.</p>
+            </div>
+        </div>
+
+        <br><h3>Krok 5 - Vzorová pravidla pro všechny jazyky:</h3>
+        <p>Tento krok definuje, jak se ze zdrojového textu (C, C++, ASM) stane binární polotovar – objektový soubor (<code>.o</code>). Existuje pět hlavních způsobů, jak toto v Makefile zapsat. Každý má své specifické využití, výhody a kritické chytáky.</p>
+
+        <h3>Způsob A: Explicitní pravidla (Ruční výpis)</h3>
+        <p>Nejzákladnější a nejstarší metoda. Každý soubor má svůj vlastní řádek. Poskytuje absolutní kontrolu, ale je neudržitelná pro velké projekty.</p>
+        <div class="code">
+            <span class="codename">&nbsp;Makefile</span><br><br>
+            <div>
+                <span>main.o: main.c</span><br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;$(CC) $(CFLAGS) -c main.c -o main.o</span><br>
+                <span>utils.o: utils.c</span><br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;$(CC) $(CFLAGS) -DDEBUG -c utils.c -o utils.o</span>
+            </div>
+        </div>
+        <p><b>Výhoda:</b> Umožňuje přidat specifické flagy (např. <code>-DDEBUG</code>) pouze pro jeden konkrétní soubor.</p>
+
+        <h3>Způsob B: Pattern Rules (Moderní GNU Make)</h3>
+        <p>Využívá zástupný znak <code>%</code>. Je to šablona: "Pokud vidíš cíl končící na .o a máš k němu .c, použij tento postup."</p>
+        <div class="code">
+            <span class="codename">&nbsp;Makefile</span><br><br>
+            <div>
+                <span>%.o: %.c</span><br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;$(CC) $(CFLAGS) -c $&lt; -o $@</span>
+            </div>
+        </div>
+        <p><b>Hloubková definice proměnných:</b></p>
+        <ul>
+            <li><b><code>$@</code></b>: Název cíle (target), např. <code>main.o</code>.</li>
+            <li><b><code>$&lt;</code></b>: Název první prerekvizity (zdroj), např. <code>main.c</code>.</li>
+        </ul>
+
+        <h3>Způsob C: Suffix Rules (Historický / POSIX)</h3>
+        <p>Zastaralý způsob, se kterým se setkáte ve starých systémech. Nepoužívá <code>%</code>, ale definuje transformaci přípon. Před tímto pravidlem se musí definovat seznam povolených přípon <code>.SUFFIXES</code>.</p>
+        <div class="code">
+            <span class="codename">&nbsp;Makefile</span><br><br>
+            <div>
+                <span>.SUFFIXES: .c .o</span><br>
+                <span>.c.o:</span><br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;$(CC) $(CFLAGS) -c $&lt; -o $@</span>
+            </div>
+        </div>
+        <p><b>Chyták:</b> Suffixová pravidla neumí pracovat s více prerekvizitami (např. závislost na hlavičkovém souboru) tak elegantně jako pattern rules.</p>
+
+        <h3>Způsob D: Static Pattern Rules (Omezený výběr)</h3>
+        <p>Kombinace explicitního výpisu a šablony. Říkáte: "Z tohoto konkrétního seznamu souborů udělej objekty pomocí této masky."</p>
+        <div class="code">
+            <span class="codename">&nbsp;Makefile</span><br><br>
+            <div>
+                <span>$(OBJS_C): %.o: %.c</span><br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;$(CC) $(CFLAGS) -c $&lt; -o $@</span>
+            </div>
+        </div>
+        <p><b>Proč to chtít?</b> Pokud máte v jedné složce soubory pro Windows i Linux, touto metodou zajistíte, že se budou kompilovat jen ty, které jste vypsali v <code>$(OBJS_C)</code>, a ne všechno, co končí na <code>.c</code>.</p>
+
+        <h3>Způsob E: Implicitní pravidla (Vestavěná)</h3>
+        <p>Make má v sobě zabudovanou databázi pravidel. Pokud v Makefile nenapíšete žádný Krok 5, Make se pokusí soubor zkompilovat sám pomocí předdefinovaných maker <code>$(CC)</code> a <code>$(CFLAGS)</code>.</p>
+        <div class="code">
+            <span class="codename">&nbsp;Makefile</span><br><br>
+            <div>
+                <span># V Makefile není nic, jen:</span><br>
+                <span>main.o: main.c</span><br>
+                <span># Make automaticky spustí: cc -c -o main.o main.c</span>
+            </div>
+        </div>
+
+        <br><h3>Krok 6 - Úklid:</h3>
+        <div class="code">
+            <span class="codename">&nbsp;Makefile</span><br><br>
+            <div>
+                <span>.PHONY: all clean</span>
+                <br><span>clean:</span>
+                <br>&nbsp;&nbsp;<span>rm -rf $(OBJS) $(TARGET) *.d</span>
+            </div>
+        </div>
+
     </section><br>
 
 
