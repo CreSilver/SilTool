@@ -22,7 +22,7 @@
 //
 //
 //Konstanty
-const QString APP_VERSION = "0dev10";
+const QString APP_VERSION = "0dev11";
 
 #define SIDEBAR_WIDTH 250
 #define ACTIONBAR_HEIGHT 35
@@ -33,55 +33,33 @@ class SideBar : public QFrame{ // SideBar
     Q_OBJECT
     private:
         QString btnStyle= "QPushButton{color:#121212;border:2px solid transparent;border-radius:8px;background-color: #cacaca;padding: 8px 0px 8px 0px} QPushButton:hover{border:2px solid #a4a4a4;background-color: #121212;color: #e0e0e0;}";
+        QString btnBackStyle= "QPushButton{color:#121212;border:2px solid transparent;text-align:left; text-decoration: none} QPushButton:hover{text-decoration: underline}";
+        QString btnBackText= "⬅ Zpět do menu";
+        QVBoxLayout *layout;
+        int section = 0;
+        // section: 
+        // 0 = menu
+        // 1 = dokumentace
+        // 2 = nástroje
+
 
     public:
         SideBar(QWidget *parent = nullptr) : QFrame(parent){
+            // Create panel
             this->setFixedWidth(SIDEBAR_WIDTH);
             this->setStyleSheet("background-color: #e0e0e0;");
-            QVBoxLayout *layout = new QVBoxLayout(this);
+            layout = new QVBoxLayout(this);
 
-            // Sidebar prvky
-                //Logo
-            QLabel *logoText = new QLabel(this);
-            logoText->setText(
-              "<div style='text-align: center;'><br>"
-              "<span style='font-size: 40px; font-weight: bold;color: #121212;'>SilverTool</span><br>"
-              "<span style='font-size: 18px;margin-top: -5px;color: #121212;'>Prototyp</span>"
-              "<br></div>");
-                // By Slverko
-                // Version
-            QLabel *end_sidebar = new QLabel(this);
-            QString end_sidebar_text = QString(
-                "<br><span style='font-size: 15px; color: #a4a4a4;'>by Silverko</span><br><span style='font-size: 10px; color: #a4a4a4;'>Version: " + 
-                APP_VERSION + "</span>"
-            );
-            end_sidebar->setText(end_sidebar_text);
-                // Tlačítka
-            QPushButton *btnCD = new QPushButton("C/C++ Dev.", this);
-            QPushButton *btnCO = new QPushButton("Compilation doc.", this);
-            QPushButton *btnASM = new QPushButton("Assembly Dev.", this);
 
-            //Button design
-            btnCD->setStyleSheet(btnStyle);
-            btnCO->setStyleSheet(btnStyle);
-            btnASM->setStyleSheet(btnStyle);
-
-            // Pořadí prvků
-                // Záleží na pořadí
-            layout->addWidget(logoText);
-            layout->addWidget(btnCO);
-            layout->addWidget(btnCD);
-            layout->addWidget(btnASM);
-            layout->addStretch();
-            layout->addWidget(end_sidebar);
-
-            //Signály
-            connect(btnCO, &QPushButton::clicked, this, &SideBar::WDclick);
-            connect(btnCD, &QPushButton::clicked, this, &SideBar::CDclick);
-            connect(btnASM, &QPushButton::clicked, this, &SideBar::ASMclick);
+            Rerender();
         };
+        void setSection(int sec);
+        void render();
+        void Rerender();
 
     signals:
+        void TOOLclick();
+        void DOCclick();
         void CDclick();
         void WDclick();
         void ASMclick();
@@ -110,24 +88,23 @@ class ActionBar : public QFrame{ // bar pro action tlačítka
             btnBack->setStyleSheet(btnStyle);
             btnRefresh->setStyleSheet(btnStyle);
 
+            // Sgnály
+            connect(btnBack, &QPushButton::clicked, this, &ActionBar::backClicked);
+            connect(btnRefresh, &QPushButton::clicked, this, &ActionBar::refreshClicked);
+
             // Layout
             layout->setContentsMargins(8, 4, 8, 4);
             layout->addStretch();
             layout->addWidget(btnBack);
             layout->addWidget(btnRefresh);
-
-            // Sgnály
-            connect(btnBack, &QPushButton::clicked, this, &ActionBar::backClicked);
-            connect(btnRefresh, &QPushButton::clicked, this, &ActionBar::refreshClicked);
         }
 
-        signals:
-            void backClicked();
-            void refreshClicked();
+    signals:
+        void backClicked();
+        void refreshClicked();
 };
 
 
-// Musí být poslední
 class Window : public QWidget{ // Okno
     Q_OBJECT
     private:
@@ -212,6 +189,107 @@ class Window : public QWidget{ // Okno
 
             this->setLayout(mainLayout);
         };
+
+};
+//
+//
+// Implementace tříd
+    // Action Bar
+inline void SideBar::setSection(int sec){
+    this->section = sec;
+};
+
+inline void SideBar::Rerender(){
+    if (this->window()) {
+        QWidget *focused = this->window()->focusWidget();
+        if (focused) focused->clearFocus();
+    }
+    render();
+};
+
+inline void SideBar::render(){
+    QLayoutItem *child;
+    while ((child = layout->takeAt(0)) != nullptr){ // odstraní předchozí části
+        if(child->widget()){
+            child->widget()->hide();
+            child->widget()->deleteLater();
+        }
+        delete child;
+    }
+
+    // Logo
+    QLabel *logoText = new QLabel(this);
+    logoText->setText
+    (
+        "<div style='text-align: center;'><br>"
+        "<span style='font-size: 40px; font-weight: bold;color: #121212;'>SilverTool</span><br>"
+        "<span style='font-size: 18px;margin-top: -5px;color: #121212;'>Prototyp</span>"
+        "<br></div>"
+    );
+    layout->addWidget(logoText);
+
+    if(section!=0){ // Back button
+        QPushButton *back = new QPushButton(btnBackText, this);
+        back->setStyleSheet(btnBackStyle);
+        connect(back, &QPushButton::clicked, [this]() {this->setSection(0);this->Rerender();});
+        layout->addWidget(back);
+    }
+    if(section==0){ // If menu
+        // Tlačítka
+        QPushButton *documentation = new QPushButton("Dokumentace", this);
+        QPushButton *tools = new QPushButton("Tools", this);
+
+        // Button design
+        documentation->setStyleSheet(btnStyle);
+        tools->setStyleSheet(btnStyle);
+
+        // Layout
+        layout->addWidget(documentation);
+        layout->addWidget(tools);
+
+        //Signály
+        connect(documentation, &QPushButton::clicked, [this]() {this->setSection(1);this->Rerender();});
+        connect(tools, &QPushButton::clicked, [this]() {this->setSection(2);this->Rerender();});
+
+    }
+    else if(section == 1){ // If documents
+        // Tlačítka
+        QPushButton *btnCD = new QPushButton("C/C++ Dev.", this);
+        QPushButton *btnCO = new QPushButton("Compilation doc.", this);
+        QPushButton *btnASM = new QPushButton("Assembly Dev.", this);
+
+        //Button design
+        btnCD->setStyleSheet(btnStyle);
+        btnCO->setStyleSheet(btnStyle);
+        btnASM->setStyleSheet(btnStyle);
+
+        // Layout
+        layout->addWidget(btnCO);
+        layout->addWidget(btnCD);
+        layout->addWidget(btnASM);
+
+        //Signály
+        connect(btnCO, &QPushButton::clicked, this, &SideBar::WDclick);
+        connect(btnCD, &QPushButton::clicked, this, &SideBar::CDclick);
+        connect(btnASM, &QPushButton::clicked, this, &SideBar::ASMclick);
+
+    }
+    else if(section==2){}
+
+
+    // Fotter
+    QLabel *end_sidebar = new QLabel(this);
+    QString end_sidebar_text = QString
+    (
+        "<br><span style='font-size: 15px; color: #a4a4a4;'>by Silverko</span><br><span style='font-size: 10px; color: #a4a4a4;'>Version: " + 
+        APP_VERSION + "</span>"
+    );
+    end_sidebar->setText(end_sidebar_text);
+
+
+    //Layout
+    layout->addStretch();
+    layout->addWidget(end_sidebar);
 };
 
 
