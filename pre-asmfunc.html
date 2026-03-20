@@ -1,0 +1,48 @@
+<html>
+<head>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+    <section>
+        <br><h1>Premade Assembly functions</h1><br>
+    </section>
+    
+
+    <section>
+        <h2>Factorila</h2>
+        <p>Assembly funkce pro factorial v C: <code class="color-blue">int faktorial(int t_N);</code></p>
+        <div class="code">
+            <span class="codename">&nbsp;module.asm; module.s</span><br><br>
+            <div>
+                <span>&nbsp;&nbsp;global factorial</span><br>
+                <br>
+                <span>faktorial:</span><br>
+                <span>&nbsp;&nbsp;; edi vstup</span><br>
+                <span>&nbsp;&nbsp;; func int</span><br>
+                <br>
+                <span>&nbsp;&nbsp;mov ecx, edi ; kopíruje vstup</span><br>
+                <span>&nbsp;&nbsp;mov r8d, 1</span><br>
+                <span>&nbsp;&nbsp;cmp edi, 0</span><br>
+                <span>&nbsp;&nbsp;cmovbe eax, r8d ; jestliže vstup je 0 pak vracející hodnota je 1</span><br>
+                <span>&nbsp;&nbsp;jbe .konec</span><br>
+                <br>
+                <span>&nbsp;&nbsp;mov eax, ecx ; kopírování hodnoty</span><br>
+                <span>&nbsp;&nbsp;dec ecx ; hodnota-1</span><br>
+                <span>&nbsp;&nbsp;; v eax je n</span><br>
+                <span>.cyklus:</span><br>
+                <span>&nbsp;&nbsp;cmp ecx, 0</span><br>
+                <span>&nbsp;&nbsp;jbe .konec ; pokud je hodnota 0 pak konec</span><br>
+                <span>&nbsp;&nbsp;imul eax, ecx ; n*n-1</span><br>
+                <span>&nbsp;&nbsp;dec ecx ; hodnota-1</span><br>
+                <span>&nbsp;&nbsp;jge .cyklus</span><br>
+                <br>
+                <span>.konec:</span><br>
+                <span>&nbsp;&nbsp;ret</span>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>

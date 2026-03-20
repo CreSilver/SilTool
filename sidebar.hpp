@@ -11,7 +11,7 @@
 //
 //
 //Konstanty
-const QString APP_VERSION = "0dev12";
+const QString APP_VERSION = "0dev13";
 #define SIDEBAR_WIDTH 250
 //
 //

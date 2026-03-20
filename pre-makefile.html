@@ -1,0 +1,42 @@
+<html>
+    <head>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+    <section>
+        <h1>Premade makefiles</h1>
+    </section>
+
+
+
+    <section>
+        <h2>C, Assembler</h2>
+        <p>Předvytvořený makefile pro práci se dvěmi soubory a to module.s a main.c</p>
+        <div class="code">
+            <span class="codename">&nbsp;Makefile</span><br><br>
+            <div>
+                <span>CC = gcc</span><br>
+                <span>AS = nasm</span><br>
+                <span></span><br>
+                <span>CFLAGS = -Wall -Wextra -no-pie -g</span><br>
+                <span>ASFLAGS = -f elf64 -g</span><br>
+                <span></span><br>
+                <span>TARGET = program</span><br>
+                <span>OBJS = main.o module.o</span><br>
+                <span></span><br>
+                <span>$(TARGET): (OBJS)</span><br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;(CC) $(CFLAGS) -o $(TARGET) (OBJS)</span><br>
+                <span></span><br>
+                <span>main.o: main.c</span><br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;(CC) (CFLAGS) -c main.c -o main.o</span><br>
+                <span>module.o: module.s</span><br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;(AS) $(ASFLAGS) module.s -o module.o</span><br>
+                <span></span><br>
+                <span>clean:</span><br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;rm -f $(OBJS) $(TARGET)</span><br>
+            </div>
+        </div>
+    </section>
+</body>
