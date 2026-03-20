@@ -13,7 +13,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(Qt6 REQUIRED COMPONENTS Widgets WebEngineWidgets)
 
 # Definice spustitelného souboru
-add_executable(sil_tool main.cpp header.h)
+add_executable(sil_tool main.cpp window.cpp window.hpp sidebar.cpp sidebar.hpp actionbar.cpp actionbar.hpp)
 
 # Linkování knihoven
 target_link_libraries(sil_tool PRIVATE Qt6::Widgets Qt6::WebEngineWidgets)
