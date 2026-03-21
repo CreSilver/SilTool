@@ -25,3 +25,7 @@ a{color: #a5e1ae;}
 ul li span{color: rgb(168, 225, 251);}
 td{color: rgb(207, 168, 251)}
 th{font-weight: 500;text-decoration: underline;}
+
+.color-blue{color: rgb(80, 165, 255);}
+.color-red{color: rgb(202, 9, 9);}
+td{padding: 0 0.5rem 0 0.5rem;color: rgb(80, 165, 255);}

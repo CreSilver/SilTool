@@ -1,35 +1,18 @@
 #include "sidebar.hpp"
 
 
-
-void SideBar::setSection(int sec){
-    this->section = sec;
-};
-
-
-
-void SideBar::Rerender(){
-    if (this->window()) {
-        QWidget *focused = this->window()->focusWidget();
-        if (focused) focused->clearFocus();
-    }
-    render();
-};
+// Elements
+void SideBar::BackButton(){
+    QPushButton *back = new QPushButton(btnBackText, this);
+    back->setStyleSheet(btnBackStyle);
+    connect(back, &QPushButton::clicked, [this]() {this->setSection(0);this->ReRenderSidebar();});
+    layout->addWidget(back);
+}
 
 
 
-
-void SideBar::render(){
-    QLayoutItem *child;
-    while ((child = layout->takeAt(0)) != nullptr){ // odstraní předchozí části
-        if(child->widget()){
-            child->widget()->hide();
-            child->widget()->deleteLater();
-        }
-        delete child;
-    }
-
-    // Logo
+// Grafika
+void SideBar::LogoText(){
     QLabel *logoText = new QLabel(this);
     logoText->setText
     (
@@ -39,58 +22,9 @@ void SideBar::render(){
         "<br></div>"
     );
     layout->addWidget(logoText);
+}
 
-    if(section!=0){ // Back button
-        QPushButton *back = new QPushButton(btnBackText, this);
-        back->setStyleSheet(btnBackStyle);
-        connect(back, &QPushButton::clicked, [this]() {this->setSection(0);this->Rerender();});
-        layout->addWidget(back);
-    }
-    if(section==0){ // If menu
-        // Tlačítka
-        QPushButton *documentation = new QPushButton("Dokumentace", this);
-        QPushButton *tools = new QPushButton("Tools", this);
-
-        // Button design
-        documentation->setStyleSheet(btnStyle);
-        tools->setStyleSheet(btnStyle);
-
-        // Layout
-        layout->addWidget(documentation);
-        layout->addWidget(tools);
-
-        //Signály
-        connect(documentation, &QPushButton::clicked, [this]() {this->setSection(1);this->Rerender();});
-        connect(tools, &QPushButton::clicked, [this]() {this->setSection(2);this->Rerender();});
-
-    }
-    else if(section == 1){ // If documents
-        // Tlačítka
-        QPushButton *btnCD = new QPushButton("C/C++ Dev.", this);
-        QPushButton *btnCO = new QPushButton("Compilation doc.", this);
-        QPushButton *btnASM = new QPushButton("Assembly Dev.", this);
-
-        //Button design
-        btnCD->setStyleSheet(btnStyle);
-        btnCO->setStyleSheet(btnStyle);
-        btnASM->setStyleSheet(btnStyle);
-
-        // Layout
-        layout->addWidget(btnCO);
-        layout->addWidget(btnCD);
-        layout->addWidget(btnASM);
-
-        //Signály
-        connect(btnCO, &QPushButton::clicked, this, &SideBar::WDclick);
-        connect(btnCD, &QPushButton::clicked, this, &SideBar::CDclick);
-        connect(btnASM, &QPushButton::clicked, this, &SideBar::ASMclick);
-
-    }
-    else if(section==2){}
-
-
-
-    // Fotter
+void SideBar::EndText(){
     QLabel *end_sidebar = new QLabel(this);
     QString end_sidebar_text = QString
     (
@@ -98,11 +32,101 @@ void SideBar::render(){
         APP_VERSION + "</span>"
     );
     end_sidebar->setText(end_sidebar_text);
-
-
-
-
-    //Layout
-    layout->addStretch();
     layout->addWidget(end_sidebar);
+}
+
+
+
+// Section
+void SideBar::SecMenu(){
+    // Tlačítka
+    QPushButton *documentation = new QPushButton("Dokumentace", this);
+    QPushButton *tools = new QPushButton("Tools", this);
+
+    // Button design
+    documentation->setStyleSheet(btnStyle);
+    tools->setStyleSheet(btnStyle);
+
+    // Layout
+    layout->addWidget(documentation);
+    layout->addWidget(tools);
+
+    //Signály
+    connect(documentation, &QPushButton::clicked, [this]() {this->setSection(1);this->ReRenderSidebar();});
+    connect(tools, &QPushButton::clicked, [this]() {this->setSection(2);this->ReRenderSidebar();});
+}
+
+void SideBar::SecDoc(){
+    // Tlačítka
+    QPushButton *btnCD = new QPushButton("C/C++ Dev.", this);
+    QPushButton *btnCO = new QPushButton("Compilation doc.", this);
+    QPushButton *btnASM = new QPushButton("Assembly Dev.", this);
+
+    //Button design
+    btnCD->setStyleSheet(btnStyle);
+    btnCO->setStyleSheet(btnStyle);
+    btnASM->setStyleSheet(btnStyle);
+
+    // Layout
+    layout->addWidget(btnCO);
+    layout->addWidget(btnCD);
+    layout->addWidget(btnASM);
+
+    //Signály
+    connect(btnCO, &QPushButton::clicked, this, &SideBar::WDclick);
+    connect(btnCD, &QPushButton::clicked, this, &SideBar::CDclick);
+    connect(btnASM, &QPushButton::clicked, this, &SideBar::ASMclick);
+}
+
+void SideBar::SecTools(){
+
+}
+
+
+
+//
+void SideBar::setSection(int sec){
+    this->section = sec;
+};
+
+void SideBar::ReRenderSidebar(){
+    if (this->window()) {
+        QWidget *focused = this->window()->focusWidget();
+        if (focused) focused->clearFocus();
+    }
+    RenderSidebar();
+};
+
+void SideBar::RenderSidebar(){
+    QLayoutItem *child;
+    while ((child = layout->takeAt(0)) != nullptr){ // odstraní předchozí části
+        if(child->widget()){
+            child->widget()->hide();
+            child->widget()->deleteLater();
+        }
+        delete child;
+    }
+
+    LogoText();
+
+    if(section!=0){BackButton();} // Back button
+
+    switch(section){
+    case 0: // If menu
+        SecMenu();
+        break;
+    case 1: // If documents
+        SecDoc();
+        break;
+    case 2: // If tools
+        SecTools();
+        break;
+
+    default:
+        break;
+    }
+    
+
+    layout->addStretch();
+    EndText();
 };

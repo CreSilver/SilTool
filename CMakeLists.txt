@@ -23,6 +23,9 @@ file(COPY
     start.html 
     c_dev.html 
     makefile.html
+    compilation.html
+    pre-makefile.html
+    pre-asmfunc.html
     asm_dev.html 
     style.css
     DESTINATION ${CMAKE_CURRENT_BINARY_DIR}

@@ -11,7 +11,7 @@
 //
 //
 //Konstanty
-const QString APP_VERSION = "0dev13";
+const QString APP_VERSION = "0dev14";
 #define SIDEBAR_WIDTH 250
 //
 //
@@ -38,11 +38,20 @@ class SideBar : public QFrame{ // SideBar
             layout = new QVBoxLayout(this);
 
 
-            Rerender();
+            ReRenderSidebar();
         };
         void setSection(int sec);
-        void render();
-        void Rerender();
+        void RenderSidebar();
+        void ReRenderSidebar();
+        // Elements
+        void BackButton();
+        // Grafika
+        void LogoText();
+        void EndText();
+        // Section
+        void SecMenu();
+        void SecDoc();
+        void SecTools();
 
     signals:
         void TOOLclick();
