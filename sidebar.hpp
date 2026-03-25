@@ -11,7 +11,7 @@
 //
 //
 //Konstanty
-const QString APP_VERSION = "0dev15";
+const QString APP_VERSION = "1dev0";
 #define SIDEBAR_WIDTH 250
 //
 //
@@ -60,6 +60,7 @@ class SideBar : public QFrame{ // SideBar
         void WDclick();
         void ASMclick();
         void CLRSclick();
+        void CNVclick();
         
     public:
         virtual ~SideBar(){}

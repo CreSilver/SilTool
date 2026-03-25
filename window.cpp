@@ -26,8 +26,10 @@ void Window::RenderLayout(){
     contentStack = new QStackedWidget(this);
     rightLayout->addWidget(contentStack);
 
-    // ColorTool
-    tools *colorTool = new tools(1, this);
+    // Tools
+    tools *colorTool = new tools(0, this);
+    tools *converterTool = new tools(1, this);
+
     
     // Propojení souborů
     pageStart = createDisplayPage("start.html");
@@ -43,6 +45,7 @@ void Window::RenderLayout(){
     contentStack->addWidget(pageCE);  
     contentStack->addWidget(pageASM);
     contentStack->addWidget(colorTool);
+    contentStack->addWidget(converterTool);
 
 
 
@@ -50,6 +53,7 @@ void Window::RenderLayout(){
     connect(menu, &SideBar::CDclick, [=](){ contentStack->setCurrentIndex(2); });
     connect(menu, &SideBar::ASMclick, [=](){ contentStack->setCurrentIndex(3); });
     connect(menu, &SideBar::CLRSclick, [=](){ contentStack->setCurrentIndex(4); });
+    connect(menu, &SideBar::CNVclick, [=](){ contentStack->setCurrentIndex(5); });
 
 
     connect(topBar, &ActionBar::backClicked, [=](){

@@ -80,16 +80,20 @@ void SideBar::SecDoc(){
 
 void SideBar::SecTools(){
     // Tlačítka
-    QPushButton *btnCLRS = new QPushButton("Colors",this);
+    QPushButton *btnCLRS = new QPushButton("Barvy",this);
+    QPushButton *btnCNV = new QPushButton("Převody",this);
 
     // Button design
     btnCLRS->setStyleSheet(btnStyle);
+    btnCNV->setStyleSheet(btnStyle);
 
     // Layout
     layout->addWidget(btnCLRS);
+    layout->addWidget(btnCNV);
 
     //Signály
     connect(btnCLRS, &QPushButton::clicked, this, &SideBar::CLRSclick);
+    connect(btnCNV, &QPushButton::clicked, this, &SideBar::CNVclick);
 }
 
 
