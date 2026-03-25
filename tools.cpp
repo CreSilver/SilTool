@@ -40,6 +40,9 @@ void tools::conventr(){
     layoutConvt->addStretch();
 }
 
+
+
+
 void tools::ConverterInch(){
 QGroupBox* setInch = new QGroupBox("cm to Inch", this);
     QGridLayout* layout = new QGridLayout(setInch);
@@ -83,6 +86,8 @@ QGroupBox* setInch = new QGroupBox("cm to Inch", this);
 }
 
 
+
+
 void tools::ConverterSteps(){
     QGroupBox* setSteps = new QGroupBox("Steps to Meters", this);
     QGridLayout* layout = new QGridLayout(setSteps);
@@ -117,6 +122,8 @@ void tools::ConverterSteps(){
 }
 
 
+
+
 void tools::ConverterYards(){
     QGroupBox* setYards = new QGroupBox("Yards to Meters", this);
     QGridLayout* layout = new QGridLayout(setYards);
@@ -149,6 +156,8 @@ void tools::ConverterYards(){
     layout->addWidget(new QLabel("M:"), 0, 2);
     layout->addWidget(meters, 0, 3);
 }
+
+
 
 
 void tools::ConverterMiles(){
@@ -216,7 +225,6 @@ void tools::color() {
     spinV->setStyleSheet(boxStyle);
     hexEdit->setStyleSheet(boxStyle);
 
-    // FUNKCE AKTUALIZACE - Tady je oprava resetování H
     auto updateUI = [=]() {
         spinR->blockSignals(true); spinG->blockSignals(true); spinB->blockSignals(true);
         spinH->blockSignals(true); spinS->blockSignals(true); spinV->blockSignals(true);
