@@ -5,6 +5,7 @@
 // HEADERS
 #include "sidebar.hpp"
 #include "actionbar.hpp"
+#include "tools.hpp"
 // LIBS
 #include <QMainWindow>
 #include <QApplication>
@@ -24,6 +25,7 @@ class Window : public QWidget{ // Okno
         QWebEngineView *pageWeb;
         QWebEngineView *pageCE;
         QWebEngineView *pageASM;
+        QWebEngineView *toolColors;
 
         QWebEngineView* createDisplayPage(QString fileName) {
         QWebEngineView *view = new QWebEngineView(this);
@@ -38,68 +40,16 @@ class Window : public QWidget{ // Okno
 
     public:
         Window(QWidget *parent=nullptr):QWidget(parent){
-            this->setWindowTitle("SilverTool - Prototyp");           // Název aplikace
+            this->setWindowTitle("SilverTool - Prototyp"); 
+            this->setStyleSheet("background-color: #191919;");
             this->resize(1180, 720);
             this->setStyleSheet(
                 "QLabel {font-weight: bold; margin-bottom: 20px;}"
             );
 
-            // Nastavení layout
-            QHBoxLayout *mainLayout = new QHBoxLayout(this);
-            mainLayout->setContentsMargins(0, 0, 0, 0);
-            mainLayout->setSpacing(0);
-
-            // SideBar
-            SideBar *menu = new SideBar(this);
-            mainLayout->addWidget(menu);
-
-            // ActionBar
-            QVBoxLayout *rightLayout = new QVBoxLayout(this);
-            rightLayout->setContentsMargins(0, 0, 0, 0);
-            rightLayout->setSpacing(0);
-            ActionBar *topBar = new ActionBar(this);
-            rightLayout->addWidget(topBar);
-
-            // ViewBar
-            contentStack = new QStackedWidget(this);
-            rightLayout->addWidget(contentStack);
-
-            // Propojení souborů
-            pageStart = createDisplayPage("start.html");
-            pageWeb = createDisplayPage("makefile.html");
-            pageCE = createDisplayPage("c_dev.html");
-            pageASM = createDisplayPage("asm_dev.html");
-
-            // Propojení tlačítek s přepínáním stránek
-            mainLayout->addLayout(rightLayout);
-            contentStack->setCurrentIndex(0);
-
-            contentStack->addWidget(pageStart);
-            contentStack->addWidget(pageWeb); 
-            contentStack->addWidget(pageCE);  
-            contentStack->addWidget(pageASM);
-
-            connect(menu, &SideBar::WDclick, [=](){ contentStack->setCurrentIndex(1); });
-            connect(menu, &SideBar::CDclick, [=](){ contentStack->setCurrentIndex(2); });
-            connect(menu, &SideBar::ASMclick, [=](){ contentStack->setCurrentIndex(3); });
-
-            
-            //Signály
-            connect(topBar, &ActionBar::backClicked, [=](){
-                QWebEngineView *currentView = qobject_cast<QWebEngineView*>(contentStack->currentWidget());
-                if (currentView) currentView->back();
-            });
-
-            connect(topBar, &ActionBar::refreshClicked, [=](){
-                QWebEngineView *currentView = qobject_cast<QWebEngineView*>(contentStack->currentWidget());
-                if (currentView){
-                    currentView->page()->triggerAction(QWebEnginePage::ReloadAndBypassCache);
-                }
-            });
-
-
-            this->setLayout(mainLayout);
+            RenderLayout();
         };
+        void RenderLayout();
 
 };
 

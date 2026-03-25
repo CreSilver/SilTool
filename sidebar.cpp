@@ -62,7 +62,7 @@ void SideBar::SecDoc(){
     QPushButton *btnCO = new QPushButton("Compilation doc.", this);
     QPushButton *btnASM = new QPushButton("Assembly Dev.", this);
 
-    //Button design
+    // Button design
     btnCD->setStyleSheet(btnStyle);
     btnCO->setStyleSheet(btnStyle);
     btnASM->setStyleSheet(btnStyle);
@@ -79,7 +79,17 @@ void SideBar::SecDoc(){
 }
 
 void SideBar::SecTools(){
+    // Tlačítka
+    QPushButton *btnCLRS = new QPushButton("Colors",this);
 
+    // Button design
+    btnCLRS->setStyleSheet(btnStyle);
+
+    // Layout
+    layout->addWidget(btnCLRS);
+
+    //Signály
+    connect(btnCLRS, &QPushButton::clicked, this, &SideBar::CLRSclick);
 }
 
 
